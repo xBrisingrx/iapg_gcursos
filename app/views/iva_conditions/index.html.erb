@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Iva conditions</h1>
+
+<div id="iva_conditions">
+  <% @iva_conditions.each do |iva_condition| %>
+    <%= render iva_condition %>
+    <p>
+      <%= link_to "Show this iva condition", iva_condition %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New iva condition", new_iva_condition_path %>
