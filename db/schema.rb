@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_05_152148) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_05_163030) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -21,6 +21,25 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_152148) do
     t.index ["province_id"], name: "index_cities_on_province_id"
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "cuil", limit: 20, null: false
+    t.string "last_name", limit: 50, null: false
+    t.string "name", limit: 50, null: false
+    t.date "birthdate", null: false
+    t.string "phone", limit: 50, null: false
+    t.string "celphone", limit: 50, null: false
+    t.string "email", limit: 50, null: false
+    t.string "direction", limit: 100, null: false
+    t.string "code", limit: 6
+    t.integer "province_id", null: false
+    t.integer "city_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_people_on_city_id"
+    t.index ["province_id"], name: "index_people_on_province_id"
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name", limit: 20, null: false
     t.boolean "active", default: true
@@ -29,4 +48,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_05_152148) do
   end
 
   add_foreign_key "cities", "provinces"
+  add_foreign_key "people", "cities"
+  add_foreign_key "people", "provinces"
 end
