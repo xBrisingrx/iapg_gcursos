@@ -9,6 +9,12 @@ export default class extends Controller {
   }
 
   connect() {
-    new TomSelect( this.element).setValue(this.idsValue)
+    new TomSelect( this.element, {
+      render: {
+        no_results:function(data,escape){
+          return '<div class="no-results">No hay resultados para "'+escape(data.input)+'"</div>';
+        }
+      }
+    } ).setValue(this.idsValue)
   }
 }
