@@ -59,3 +59,5 @@ end
 
 
 gem "pagy", "~> 9.0"
+
+gem "hotwire_combobox", "~> 0.3.2"
