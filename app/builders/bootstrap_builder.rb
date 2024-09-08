@@ -2,15 +2,15 @@ class BootstrapBuilder < ActionView::Helpers::FormBuilder
   # include ActionView::Helpers::TagHelper
   # include ActionView::Context
 
-  # le indicamos que alguien mas se va a encargar de la vista 
+  # le indicamos que alguien mas se va a encargar de la vista
   delegate :content_tag, to: :@template
 
-  # en options nos vienen todos los datos de este input, 
+  # en options nos vienen todos los datos de este input,
   # podemos extraer las clases css si es q las tiene asi no las perdemos
   # ahi usamos nuestro metodo partition_custom
   def label(method, text = nil, options = {})
-    content_tag :div, class: 'col-3' do
-      super(method, text, options.merge( class: "form-label" ))
+    content_tag :div, class: "col-3" do
+      super(method, text, options.merge(class: "form-label"))
     end
   end
 
@@ -20,16 +20,16 @@ class BootstrapBuilder < ActionView::Helpers::FormBuilder
     super(*args, options)
   end
 
-  [:text_field, :number_field,:date_field].each do |method|
-    define_method method do |attribute, options={}|
+  [ :text_field, :number_field, :date_field ].each do |method|
+    define_method method do |attribute, options = {}|
       style_options, custom_options = partition_custom_opts(options)
-      content_tag :div, class: 'col-6' do
-        super(attribute, options.merge( class: "form-control #{style_options[:class]}" ))
+      content_tag :div, class: "col-6" do
+        super(attribute, options.merge(class: "form-control #{style_options[:class]}"))
       end
     end
   end
 
-  def text_area(attribute, options={})
+  def text_area(attribute, options = {})
     super(attribute, options.reverse_merge(class: "form-control"))
   end
 
@@ -45,7 +45,7 @@ class BootstrapBuilder < ActionView::Helpers::FormBuilder
   #   )
   # end
 
-  CUSTOM_OPTS = [:class].freeze
+  CUSTOM_OPTS = [ :class ].freeze
   def partition_custom_opts(opts)
     opts.partition { |k, v| CUSTOM_OPTS.include?(k) }.map(&:to_h)
   end
