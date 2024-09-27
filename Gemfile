@@ -45,11 +45,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-
   gem 'rspec-rails', '~> 7.0', '>= 7.0.1'
-  gem 'faker', '~> 3.4', '>= 3.4.2'
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
-  gem 'shoulda-matchers', '~> 6.4'
 end
 
 group :development do
@@ -57,6 +53,13 @@ group :development do
   gem "web-console"
 end
 
+group :test do
+  gem 'shoulda-matchers', '~> 6.4'
+  gem 'capybara', '~> 3.40'
+  gem 'webdrivers', '~> 5.3', '>= 5.3.1'
+end
+
+gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
 
 gem "pagy", "~> 9.0"
 
