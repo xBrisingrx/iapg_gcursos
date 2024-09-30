@@ -62,5 +62,5 @@ end
 gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
 
 gem "pagy", "~> 9.0"
-
 gem "hotwire_combobox", "~> 0.3.2"
+gem 'ransack', '~> 4.2', '>= 4.2.1'
