@@ -1,0 +1,2 @@
+class CompanyCategory < ApplicationRecord
+end
