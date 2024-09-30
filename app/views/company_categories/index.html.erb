@@ -1,16 +1,37 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Company categories" %>
-
-<h1>Company categories</h1>
-
-<div id="company_categories">
-  <% @company_categories.each do |company_category| %>
-    <%= render company_category %>
-    <p>
-      <%= link_to "Show this company category", company_category %>
-    </p>
-  <% end %>
+<h1>Categorías de empresas</h1>
+<div class="row justify-content-between mb-2">
+  <div class="col-4">
+    <%= link_to "Registrar categoría", 
+      new_company_category_path,
+      data: { turbo_frame: "modal"},
+      class: "btn btn-sm btn-primary" %>
+  </div>
+  <div class="col-6">
+    <%= form_with url: company_categories_path, method: :get, data: { controller: "filter", filter_target: "form", turbo_frame: "table" } do |form| %>
+      <%= form.search_field :query,
+          placeholder: "Filtrar por nombre...",
+          class: "form-control form-control-sm",
+          autocomplete: "off",
+          data: { action: "input->filter#search" }
+        %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New company category", new_company_category_path %>
+<%= turbo_frame_tag 'table', id: 'company_categories_table' do %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Cupoas</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id='tbody_company_categories'>
+        <%= render @company_categories %>
+      </tbody>
+    </table>
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
+<% end %>

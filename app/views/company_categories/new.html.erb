@@ -1,11 +1,3 @@
-<% content_for :title, "New company category" %>
-
-<h1>New company category</h1>
-
-<%= render "form", company_category: @company_category %>
-
-<br>
-
-<div>
-  <%= link_to "Back to company categories", company_categories_path %>
-</div>
+<%= render 'shared/modal', title: "Nueva categoría", fade_in: true do %>
+  <%= render "form", company_category: @company_category %>
+<% end %>

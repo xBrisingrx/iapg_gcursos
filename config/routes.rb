@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :company_categories
+  resources :company_categories, except: [:destroy] do
+    get 'modal_disable', on: :member
+    put 'disable', on: :member
+  end
   resources :people
   get "main/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

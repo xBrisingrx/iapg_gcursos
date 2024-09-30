@@ -1,9 +1,10 @@
 class CompanyCategoriesController < ApplicationController
-  before_action :set_company_category, only: %i[ show edit update destroy ]
+  before_action :set_company_category, only: %i[ show edit update modal_disable disable ]
 
   # GET /company_categories or /company_categories.json
   def index
-    @company_categories = CompanyCategory.all
+    filter = CompanyCategory.filter(params[:query])
+    @pagy, @company_categories = pagy(filter)
   end
 
   # GET /company_categories/1 or /company_categories/1.json
@@ -22,10 +23,19 @@ class CompanyCategoriesController < ApplicationController
   # POST /company_categories or /company_categories.json
   def create
     @company_category = CompanyCategory.new(company_category_params)
-
     respond_to do |format|
       if @company_category.save
-        format.html { redirect_to @company_category, notice: "Company category was successfully created." }
+        format.turbo_stream { 
+          render turbo_stream: [
+            turbo_stream.prepend("tbody_company_categories", 
+              partial: "company_categories/company_category", 
+              locals: { company_category: @company_category }),
+            turbo_stream.replace("toasts", 
+              partial: "shared/toasts", 
+              locals: { message: 'Categoría registrada', status_class: 'primary' })
+          ]
+        }
+        format.html { redirect_to company_category_url(@company_category), notice: "Categoría registrada." }
         format.json { render :show, status: :created, location: @company_category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +48,15 @@ class CompanyCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @company_category.update(company_category_params)
-        format.html { redirect_to @company_category, notice: "Company category was successfully updated." }
+        format.turbo_stream { 
+          render turbo_stream: [
+            turbo_stream.replace(@company_category),
+            turbo_stream.replace("toasts", 
+              partial: "shared/toasts", 
+              locals: { message: 'Categoría actualizada', status_class: 'primary' })
+          ]
+        }
+        format.html { redirect_to @company_category, notice: "Categoría actualizada." }
         format.json { render :show, status: :ok, location: @company_category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,13 +65,13 @@ class CompanyCategoriesController < ApplicationController
     end
   end
 
-  # DELETE /company_categories/1 or /company_categories/1.json
-  def destroy
-    @company_category.destroy!
+  def modal_disable;end
 
-    respond_to do |format|
-      format.html { redirect_to company_categories_path, status: :see_other, notice: "Company category was successfully destroyed." }
-      format.json { head :no_content }
+  def disable
+    if @company_category.update(active: false)
+        render turbo_stream: turbo_stream.remove(@company_category), status: :ok
+    else
+      render json: @company_category.errors, status: :unprocessable_entity
     end
   end
 
