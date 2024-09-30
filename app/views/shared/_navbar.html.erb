@@ -16,10 +16,10 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <%= link_to 'Empresas', '#', 
+          <%= link_to 'Empresas', companies_path, 
             role: 'button', data: {'bs-toggle': 'dropdown'}, aria: {expanded: 'false'}, class: 'nav-link dropdown-toggle' %>
           <ul class="dropdown-menu">
-            <%= link_to 'Ver empresas', '#', class:"dropdown-item" %>
+            <%= link_to 'Ver empresas', companies_path, class:"dropdown-item" %>
             <%= link_to 'Ver categorías', company_categories_path, class:"dropdown-item" %>
             <%= link_to 'Ver rubros', sectors_path, class:"dropdown-item" %>
             <%= link_to 'Ver condición de iva', iva_conditions_path, class:"dropdown-item" %>
