@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_30_155809) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_30_180751) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -19,15 +19,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_155809) do
     t.datetime "updated_at", null: false
     t.index ["name", "province_id"], name: "index_cities_on_name_and_province_id", unique: true
     t.index ["province_id"], name: "index_cities_on_province_id"
-  end
-
-  create_table "company_areas", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_company_areas_on_name", unique: true
   end
 
   create_table "company_categories", force: :cascade do |t|
@@ -50,8 +41,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_155809) do
     t.string "email", limit: 50, null: false
     t.string "direction", limit: 100, null: false
     t.string "code", limit: 6
-    t.integer "province_id", null: false
-    t.integer "city_id", null: false
+    t.integer "province_id"
+    t.integer "city_id"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,6 +55,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_155809) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_sectors_on_name", unique: true
   end
 
   add_foreign_key "cities", "provinces"
