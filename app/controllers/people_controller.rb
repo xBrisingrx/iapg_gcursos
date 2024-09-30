@@ -96,7 +96,7 @@ class PeopleController < ApplicationController
     end
 
     def set_city
-      @city_id = [ @person.city&.id ]
+      @city_id = [ @person.city.id ]
     end
 
     # Only allow a list of trusted parameters through.
