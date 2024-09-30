@@ -7,11 +7,13 @@ class CompanyCategory < ApplicationRecord
   scope :actives, -> { where(active: true) }
 
   def self.filter(query)
-    return CompanyCategory.select(:id, :name, :description, :quota).actives if query.blank?
-    CompanyCategory.select(:id, :name, :description, :quota)
-      .where("name LIKE ?", "%#{query}%")
-      .or(CompanyCategory.where("quota LIKE ?", "%#{query}%"))
-      .or(CompanyCategory.where("description LIKE ?", "%#{query}%"))
-      .order(name: :asc)
+    category = CompanyCategory.select(:id, :name, :description, :quota).actives
+    if !query.blank?
+      category = category
+                .where("name LIKE ?", "%#{query}%")
+                .or(CompanyCategory.where("description LIKE ?", "%#{query}%"))
+                .or(CompanyCategory.where("quota LIKE ?", "%#{query}%"))
+    end
+    category.order(name: :asc)
   end
 end
