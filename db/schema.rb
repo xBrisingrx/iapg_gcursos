@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_30_180751) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_30_192909) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -29,6 +29,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_180751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_company_categories_on_name", unique: true
+  end
+
+  create_table "iva_conditions", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_iva_conditions_on_name", unique: true
   end
 
   create_table "people", force: :cascade do |t|
