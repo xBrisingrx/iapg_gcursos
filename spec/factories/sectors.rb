@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :company_area do
+  factory :sector do
     name { "MyString" }
     description { "MyString" }
     active { false }

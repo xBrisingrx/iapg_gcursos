@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "company_areas/show", type: :view do
+RSpec.describe "sectors/show", type: :view do
   before(:each) do
-    assign(:company_area, CompanyArea.create!(
+    assign(:sector, Sector.create!(
       name: "Name",
       description: "Description",
       active: false

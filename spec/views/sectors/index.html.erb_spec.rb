@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "company_areas/index", type: :view do
+RSpec.describe "sectors/index", type: :view do
   before(:each) do
-    assign(:company_areas, [
-      CompanyArea.create!(
+    assign(:sectors, [
+      Sector.create!(
         name: "Name",
         description: "Description",
         active: false
       ),
-      CompanyArea.create!(
+      Sector.create!(
         name: "Name",
         description: "Description",
         active: false
@@ -16,7 +16,7 @@ RSpec.describe "company_areas/index", type: :view do
     ])
   end
 
-  it "renders a list of company_areas" do
+  it "renders a list of sectors" do
     render
     cell_selector = 'div>p'
     assert_select cell_selector, text: Regexp.new("Name".to_s), count: 2

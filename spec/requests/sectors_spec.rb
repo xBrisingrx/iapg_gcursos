@@ -12,10 +12,10 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/company_areas", type: :request do
+RSpec.describe "/sectors", type: :request do
   
   # This should return the minimal set of attributes required to create a valid
-  # CompanyArea. As you add validations to CompanyArea, be sure to
+  # Sector. As you add validations to Sector, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -27,58 +27,58 @@ RSpec.describe "/company_areas", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      CompanyArea.create! valid_attributes
-      get company_areas_url
+      Sector.create! valid_attributes
+      get sectors_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      company_area = CompanyArea.create! valid_attributes
-      get company_area_url(company_area)
+      sector = Sector.create! valid_attributes
+      get sector_url(sector)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_company_area_url
+      get new_sector_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      company_area = CompanyArea.create! valid_attributes
-      get edit_company_area_url(company_area)
+      sector = Sector.create! valid_attributes
+      get edit_sector_url(sector)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new CompanyArea" do
+      it "creates a new Sector" do
         expect {
-          post company_areas_url, params: { company_area: valid_attributes }
-        }.to change(CompanyArea, :count).by(1)
+          post sectors_url, params: { sector: valid_attributes }
+        }.to change(Sector, :count).by(1)
       end
 
-      it "redirects to the created company_area" do
-        post company_areas_url, params: { company_area: valid_attributes }
-        expect(response).to redirect_to(company_area_url(CompanyArea.last))
+      it "redirects to the created sector" do
+        post sectors_url, params: { sector: valid_attributes }
+        expect(response).to redirect_to(sector_url(Sector.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new CompanyArea" do
+      it "does not create a new Sector" do
         expect {
-          post company_areas_url, params: { company_area: invalid_attributes }
-        }.to change(CompanyArea, :count).by(0)
+          post sectors_url, params: { sector: invalid_attributes }
+        }.to change(Sector, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post company_areas_url, params: { company_area: invalid_attributes }
+        post sectors_url, params: { sector: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -90,42 +90,42 @@ RSpec.describe "/company_areas", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested company_area" do
-        company_area = CompanyArea.create! valid_attributes
-        patch company_area_url(company_area), params: { company_area: new_attributes }
-        company_area.reload
+      it "updates the requested sector" do
+        sector = Sector.create! valid_attributes
+        patch sector_url(sector), params: { sector: new_attributes }
+        sector.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the company_area" do
-        company_area = CompanyArea.create! valid_attributes
-        patch company_area_url(company_area), params: { company_area: new_attributes }
-        company_area.reload
-        expect(response).to redirect_to(company_area_url(company_area))
+      it "redirects to the sector" do
+        sector = Sector.create! valid_attributes
+        patch sector_url(sector), params: { sector: new_attributes }
+        sector.reload
+        expect(response).to redirect_to(sector_url(sector))
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        company_area = CompanyArea.create! valid_attributes
-        patch company_area_url(company_area), params: { company_area: invalid_attributes }
+        sector = Sector.create! valid_attributes
+        patch sector_url(sector), params: { sector: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested company_area" do
-      company_area = CompanyArea.create! valid_attributes
+    it "destroys the requested sector" do
+      sector = Sector.create! valid_attributes
       expect {
-        delete company_area_url(company_area)
-      }.to change(CompanyArea, :count).by(-1)
+        delete sector_url(sector)
+      }.to change(Sector, :count).by(-1)
     end
 
-    it "redirects to the company_areas list" do
-      company_area = CompanyArea.create! valid_attributes
-      delete company_area_url(company_area)
-      expect(response).to redirect_to(company_areas_url)
+    it "redirects to the sectors list" do
+      sector = Sector.create! valid_attributes
+      delete sector_url(sector)
+      expect(response).to redirect_to(sectors_url)
     end
   end
 end
