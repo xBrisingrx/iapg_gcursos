@@ -10,7 +10,7 @@ class Sector < ApplicationRecord
     if !query.blank?
       sector = sector
                 .where("name LIKE ?", "%#{query}%")
-                .or(sector.where("description LIKE ?", "%#{query}%"))
+                .or(Sector.where("description LIKE ?", "%#{query}%"))
     end
     sector.order(name: :asc)
   end
