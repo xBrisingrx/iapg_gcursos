@@ -16,4 +16,8 @@ class CompanyCategory < ApplicationRecord
     end
     category.order(name: :asc)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "id", "name" ]
+  end
 end
