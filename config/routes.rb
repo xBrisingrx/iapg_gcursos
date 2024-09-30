@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :companies, except: [ :destroy ] do
+    get "modal_disable", on: :member
+    put "disable", on: :member
+  end
   resources :iva_conditions, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
