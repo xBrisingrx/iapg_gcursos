@@ -74,7 +74,7 @@ class SectorsController < ApplicationController
           turbo_stream.remove(@sector),
           turbo_stream.replace("toasts",
             partial: "shared/toasts",
-            locals: { message: "Sector eliminado", status_class: "primary" })
+            locals: { message: "Rubro eliminado", status_class: "primary" })
         ], status: :ok
     else
       render json: @sector.errors, status: :unprocessable_entity
