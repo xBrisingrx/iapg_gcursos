@@ -2,7 +2,7 @@
   <div class="form-group row mb-2">
     <%= form.label :headquarter_id, "Sede" %>
     <div class="col-6">
-      <%= form.select :headquarter_id, Headquarter.all.collect { |headquarter| [ "#{headquarter.name}", headquarter.id ] },
+      <%= form.select :headquarter_id, Headquarter.actives.all.collect { |headquarter| [ "#{headquarter.name}", headquarter.id ] },
         {:include_blank => "Seleccione sede"},
         data: {controller: 'tselect',
           tselect_ids_value: @headquarter_id
