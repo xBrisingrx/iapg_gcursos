@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_30_194302) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_01_134131) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -45,6 +45,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_194302) do
     t.index ["sector_id"], name: "index_companies_on_sector_id"
   end
 
+  create_table "company_areas", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_company_areas_on_name", unique: true
+  end
+
   create_table "company_categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -53,6 +62,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_194302) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_company_categories_on_name", unique: true
+  end
+
+  create_table "headquarters", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_headquarters_on_name", unique: true
   end
 
   create_table "iva_conditions", force: :cascade do |t|
@@ -74,8 +92,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_194302) do
     t.string "email", limit: 50, null: false
     t.string "direction", limit: 100, null: false
     t.string "code", limit: 6
-    t.integer "province_id"
-    t.integer "city_id"
+    t.integer "province_id", null: false
+    t.integer "city_id", null: false
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
