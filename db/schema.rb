@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_01_144519) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_01_151116) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -70,7 +70,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_144519) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sectional_id", null: false
+    t.integer "province_id", null: false
+    t.integer "city_id", null: false
+    t.boolean "can_make_psychometric", default: false
+    t.index ["city_id"], name: "index_headquarters_on_city_id"
     t.index ["name"], name: "index_headquarters_on_name", unique: true
+    t.index ["province_id"], name: "index_headquarters_on_province_id"
+    t.index ["sectional_id"], name: "index_headquarters_on_sectional_id"
   end
 
   create_table "iva_conditions", force: :cascade do |t|
@@ -146,6 +153,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_144519) do
   add_foreign_key "companies", "iva_conditions"
   add_foreign_key "companies", "provinces"
   add_foreign_key "companies", "sectors"
+  add_foreign_key "headquarters", "cities"
+  add_foreign_key "headquarters", "provinces"
+  add_foreign_key "headquarters", "sectionals"
   add_foreign_key "people", "cities"
   add_foreign_key "people", "provinces"
   add_foreign_key "rooms", "headquarters"
