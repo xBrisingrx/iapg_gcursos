@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_01_134131) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_01_141532) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -108,6 +108,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_134131) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.integer "capacity", null: false
+    t.integer "headquarter_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["headquarter_id"], name: "index_rooms_on_headquarter_id"
+  end
+
   create_table "sectors", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -125,4 +136,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_134131) do
   add_foreign_key "companies", "sectors"
   add_foreign_key "people", "cities"
   add_foreign_key "people", "provinces"
+  add_foreign_key "rooms", "headquarters"
 end
