@@ -24,6 +24,9 @@
         <tr>
           <th><%= sort_link(@query, :name, "Nombre") %></th>
           <th><%= sort_link(@query, :description, "Descripción") %></th>
+          <th><%= sort_link(@query, :can_make_psychometric, "Realiza psicométrico") %></th>
+          <th><%= sort_link(@query, :sectional_id, "Seccional") %></th>
+          <th><%= sort_link(@query, :city_id, "Ubicación") %></th>
           <th>Acciones</th>
         </tr>
       </thead>

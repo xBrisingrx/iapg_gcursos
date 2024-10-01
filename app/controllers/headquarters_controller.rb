@@ -18,6 +18,7 @@ class HeadquartersController < ApplicationController
 
   # GET /headquarters/1/edit
   def edit
+    set_selectors
   end
 
   # POST /headquarters or /headquarters.json
@@ -39,6 +40,7 @@ class HeadquartersController < ApplicationController
         format.html { redirect_to @headquarter, notice: "Headquarter was successfully created." }
         format.json { render :show, status: :created, location: @headquarter }
       else
+        set_selectors
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @headquarter.errors, status: :unprocessable_entity }
       end
@@ -60,6 +62,7 @@ class HeadquartersController < ApplicationController
         format.html { redirect_to @headquarter, notice: "Headquarter was successfully updated." }
         format.json { render :show, status: :ok, location: @headquarter }
       else
+        set_selectors
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @headquarter.errors, status: :unprocessable_entity }
       end
@@ -87,8 +90,13 @@ class HeadquartersController < ApplicationController
       @headquarter = Headquarter.find(params[:id])
     end
 
+    def set_selectors
+      @city_id = [ @headquarter.city&.id ]
+      @sectional_id = [ @headquarter.sectional&.id ]
+    end
+
     # Only allow a list of trusted parameters through.
     def headquarter_params
-      params.require(:headquarter).permit(:name, :description, :active)
+      params.require(:headquarter).permit(:name, :description, :city_id, :sectional_id, :can_make_psychometric, :active)
     end
 end
