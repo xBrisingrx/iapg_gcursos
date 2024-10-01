@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :sectionals, except: [ :destroy ] do
+    get "modal_disable", on: :member
+    put "disable", on: :member
+  end
   resources :rooms, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
