@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :course_types
   resources :sectionals, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member

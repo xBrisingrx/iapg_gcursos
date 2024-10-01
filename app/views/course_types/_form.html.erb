@@ -1,0 +1,67 @@
+<%= form_with(model: course_type) do |form| %>
+  <% if course_type.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(course_type.errors.count, "error") %> prohibited this course_type from being saved:</h2>
+
+      <ul>
+        <% course_type.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label :min_quota, style: "display: block" %>
+    <%= form.number_field :min_quota %>
+  </div>
+
+  <div>
+    <%= form.label :max_quota, style: "display: block" %>
+    <%= form.number_field :max_quota %>
+  </div>
+
+  <div>
+    <%= form.label :min_score, style: "display: block" %>
+    <%= form.number_field :min_score %>
+  </div>
+
+  <div>
+    <%= form.label :max_score, style: "display: block" %>
+    <%= form.number_field :max_score %>
+  </div>
+
+  <div>
+    <%= form.label :passing_score, style: "display: block" %>
+    <%= form.number_field :passing_score %>
+  </div>
+
+  <div>
+    <%= form.label :number_of_repeat, style: "display: block" %>
+    <%= form.number_field :number_of_repeat %>
+  </div>
+
+  <div>
+    <%= form.label :room_id, style: "display: block" %>
+    <%= form.text_field :room_id %>
+  </div>
+
+  <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.check_box :active %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
