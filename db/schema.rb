@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_01_151116) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_01_160058) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -45,15 +45,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_151116) do
     t.index ["sector_id"], name: "index_companies_on_sector_id"
   end
 
-  create_table "company_areas", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_company_areas_on_name", unique: true
-  end
-
   create_table "company_categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -62,6 +53,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_151116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_company_categories_on_name", unique: true
+  end
+
+  create_table "course_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "min_quota", null: false
+    t.integer "max_quota", null: false
+    t.integer "min_score", null: false
+    t.integer "max_score", null: false
+    t.integer "passing_score", null: false
+    t.integer "number_of_repeat", null: false
+    t.boolean "need_code", default: false
+    t.integer "fleet", null: false
+    t.integer "room_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_course_types_on_room_id"
   end
 
   create_table "headquarters", force: :cascade do |t|
@@ -99,8 +108,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_151116) do
     t.string "email", limit: 50, null: false
     t.string "direction", limit: 100, null: false
     t.string "code", limit: 6
-    t.integer "province_id", null: false
-    t.integer "city_id", null: false
+    t.integer "province_id"
+    t.integer "city_id"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -153,6 +162,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_151116) do
   add_foreign_key "companies", "iva_conditions"
   add_foreign_key "companies", "provinces"
   add_foreign_key "companies", "sectors"
+  add_foreign_key "course_types", "rooms"
   add_foreign_key "headquarters", "cities"
   add_foreign_key "headquarters", "provinces"
   add_foreign_key "headquarters", "sectionals"

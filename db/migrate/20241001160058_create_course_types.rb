@@ -10,6 +10,7 @@ class CreateCourseTypes < ActiveRecord::Migration[7.2]
       t.integer :passing_score, null: false
       t.integer :number_of_repeat, null: false
       t.boolean :need_code, default: false
+      t.integer :fleet, null: false
       t.references :room, null: false, foreign_key: true
       t.boolean :active, default: true
 
