@@ -1,67 +1,68 @@
-<%= form_with(model: course_type) do |form| %>
-  <% if course_type.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(course_type.errors.count, "error") %> prohibited this course_type from being saved:</h2>
+<%= form_with(model: course_type, builder: BootstrapBuilder) do |form| %>
+  <div class="form-group row mb-2">
+    <%= form.label :name, "Nombre" %>
+    <%= form.text_field :name, required: true %>
+    <%= inline_error_for(:name, course_type, "offset-3") %>
+  </div>
 
-      <ul>
-        <% course_type.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div class="form-group row mb-2">
+    <%= form.label :description, "Descripción" %>
+    <%= form.text_field :description, required: true %>
+    <%= inline_error_for(:description, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :min_quota, "Cupo mínimo" %>
+    <%= form.number_field :min_quota, required: true %>
+    <%= inline_error_for(:min_quota, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :max_quota, "Cupo máximo" %>
+    <%= form.number_field :max_quota, required: true %>
+    <%= inline_error_for(:max_quota, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :min_score, "Nota mínima" %>
+    <%= form.number_field :min_score, required: true %>
+    <%= inline_error_for(:min_score, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :max_score, "Nota máxima" %>
+    <%= form.number_field :max_score, required: true %>
+    <%= inline_error_for(:max_score, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :passing_score, "Aprueba con" %>
+    <%= form.number_field :passing_score, required: true %>
+    <%= inline_error_for(:passing_score, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :number_of_repeat, "Recuperatorios" %>
+    <%= form.number_field :number_of_repeat, required: true %>
+    <%= inline_error_for(:number_of_repeat, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :room_id, "Sala" %>
+    <div class="col-6">
+      <%= form.select :room_id, Room.actives.all.collect { |room| [ "#{room.name}", room.id ] },
+        {:include_blank => "Seleccione sala"},
+        data: {controller: 'tselect',
+          tselect_ids_value: @room_id
+        },
+        required: true
+      %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= inline_error_for(:room_id, course_type, "offset-3") %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :min_quota, style: "display: block" %>
-    <%= form.number_field :min_quota %>
-  </div>
-
-  <div>
-    <%= form.label :max_quota, style: "display: block" %>
-    <%= form.number_field :max_quota %>
-  </div>
-
-  <div>
-    <%= form.label :min_score, style: "display: block" %>
-    <%= form.number_field :min_score %>
-  </div>
-
-  <div>
-    <%= form.label :max_score, style: "display: block" %>
-    <%= form.number_field :max_score %>
-  </div>
-
-  <div>
-    <%= form.label :passing_score, style: "display: block" %>
-    <%= form.number_field :passing_score %>
-  </div>
-
-  <div>
-    <%= form.label :number_of_repeat, style: "display: block" %>
-    <%= form.number_field :number_of_repeat %>
-  </div>
-
-  <div>
-    <%= form.label :room_id, style: "display: block" %>
-    <%= form.text_field :room_id %>
-  </div>
-
-  <div>
-    <%= form.label :active, style: "display: block" %>
-    <%= form.check_box :active %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class='mt-2'>
+    <%= form.submit 'Guardar' %>
+    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</button>
   </div>
 <% end %>
