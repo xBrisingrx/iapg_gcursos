@@ -38,8 +38,9 @@
           <%= link_to 'Cursos', '#', 
             role: 'button', data: {'bs-toggle': 'dropdown'}, aria: {expanded: 'false'}, class: 'nav-link dropdown-toggle' %>
           <ul class="dropdown-menu">
-            <%= link_to 'Ver cursos', '#', class:"dropdown-item" %>
+            <%= link_to 'Ver cursos', courses_path, class:"dropdown-item" %>
             <%= link_to 'Ver tipos de cursos', course_types_path, class:"dropdown-item" %>
+            <%= link_to 'Ver Módulos', units_path, class:"dropdown-item" %>
           </ul>
         </li>
         <li class="nav-item dropdown">

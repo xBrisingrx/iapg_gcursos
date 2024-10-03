@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
-  resources :questions
+  resources :instructors, except: [ :destroy ] do
+    get "modal_disable", on: :member
+    put "disable", on: :member
+  end
+  resources :courses, except: [ :destroy ] do
+    get "modal_disable", on: :member
+    put "disable", on: :member
+  end
+  resources :units, except: [ :destroy ] do
+    get "modal_disable", on: :member
+    put "disable", on: :member
+  end
+  resources :questions, except: [ :destroy ] do
+    get "modal_disable", on: :member
+    put "disable", on: :member
+  end
   resources :tests, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member

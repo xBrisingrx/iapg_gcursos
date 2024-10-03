@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_03_154205) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -45,6 +45,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
     t.index ["sector_id"], name: "index_companies_on_sector_id"
   end
 
+  create_table "company_areas", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_company_areas_on_name", unique: true
+  end
+
   create_table "company_categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -73,21 +82,42 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
     t.index ["room_id"], name: "index_course_types_on_room_id"
   end
 
-  create_table "course_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description", null: false
-    t.integer "min_quota", null: false
-    t.integer "max_quota", null: false
-    t.integer "min_score", null: false
-    t.integer "max_score", null: false
-    t.integer "passing_score", null: false
-    t.integer "number_of_repeat", null: false
-    t.boolean "need_code", default: false
+  create_table "course_unit_tests", force: :cascade do |t|
+    t.integer "test_id", null: false
+    t.integer "courses_unit_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_unit_id"], name: "index_course_unit_tests_on_courses_unit_id"
+    t.index ["test_id"], name: "index_course_unit_tests_on_test_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.date "date", null: false
+    t.integer "year_number", null: false
+    t.integer "general_number", null: false
+    t.boolean "is_company", default: false
+    t.integer "course_type_id", null: false
     t.integer "room_id", null: false
+    t.integer "company_id"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_course_types_on_room_id"
+    t.index ["company_id"], name: "index_courses_on_company_id"
+    t.index ["course_type_id"], name: "index_courses_on_course_type_id"
+    t.index ["room_id"], name: "index_courses_on_room_id"
+  end
+
+  create_table "courses_units", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "unit_id", null: false
+    t.integer "intructor_id", null: false
+    t.string "shift", null: false
+    t.integer "day", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_courses_units_on_course_id"
+    t.index ["intructor_id"], name: "index_courses_units_on_intructor_id"
+    t.index ["unit_id"], name: "index_courses_units_on_unit_id"
   end
 
   create_table "headquarters", force: :cascade do |t|
@@ -104,6 +134,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
     t.index ["name"], name: "index_headquarters_on_name", unique: true
     t.index ["province_id"], name: "index_headquarters_on_province_id"
     t.index ["sectional_id"], name: "index_headquarters_on_sectional_id"
+  end
+
+  create_table "instructors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "iva_conditions", force: :cascade do |t|
@@ -125,8 +163,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
     t.string "email", limit: 50, null: false
     t.string "direction", limit: 100, null: false
     t.string "code", limit: 6
-    t.integer "province_id"
-    t.integer "city_id"
+    t.integer "province_id", null: false
+    t.integer "city_id", null: false
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -193,6 +231,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "units", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.string "fleet", null: false
+    t.string "methodology", null: false
+    t.string "category", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "cities", "provinces"
   add_foreign_key "companies", "cities"
   add_foreign_key "companies", "company_categories"
@@ -200,6 +249,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
   add_foreign_key "companies", "provinces"
   add_foreign_key "companies", "sectors"
   add_foreign_key "course_types", "rooms"
+  add_foreign_key "course_unit_tests", "courses_units"
+  add_foreign_key "course_unit_tests", "tests"
+  add_foreign_key "courses", "companies"
+  add_foreign_key "courses", "course_types"
+  add_foreign_key "courses", "rooms"
+  add_foreign_key "courses_units", "courses"
+  add_foreign_key "courses_units", "intructors"
+  add_foreign_key "courses_units", "units"
   add_foreign_key "headquarters", "cities"
   add_foreign_key "headquarters", "provinces"
   add_foreign_key "headquarters", "sectionals"

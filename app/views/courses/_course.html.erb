@@ -1,0 +1,16 @@
+<%= tag.tr id: dom_id(course) do %>
+  <td><%= course.date %></td>
+  <td><%= course.course_type.name %></td>
+  <td><%= course.room.name %></td>
+  <td><%= course.company&.name %></td>
+  <td>
+    <%= link_to edit_course_path(course), 
+      class: "btn btn-warning btn-sm btn-sm btn-icon text-white",title: 'Editar' ,data: { turbo: false} do %>
+      <i class="bi bi-pencil-square"></i>
+    <% end %>
+    <%= link_to modal_disable_course_path(course), 
+      class: "btn btn-sm btn-icon btn-danger",title: 'Eliminar' ,data: { turbo_frame: "modal"} do %>
+      <i class="bi bi-trash"></i>
+    <% end %>
+  </td>
+<% end %>

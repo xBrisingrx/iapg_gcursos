@@ -6,6 +6,8 @@ class Company < ApplicationRecord
   belongs_to :city
 
   before_validation :set_province
+  
+  scope :actives, -> { where(active: true) }
 
   def self.ransackable_attributes(auth_object = nil)
     [ "cuit", "id", "id_value", "name", "sector_id", "company_category_id" ]
