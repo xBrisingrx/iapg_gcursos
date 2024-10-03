@@ -73,6 +73,23 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
     t.index ["room_id"], name: "index_course_types_on_room_id"
   end
 
+  create_table "course_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "min_quota", null: false
+    t.integer "max_quota", null: false
+    t.integer "min_score", null: false
+    t.integer "max_score", null: false
+    t.integer "passing_score", null: false
+    t.integer "number_of_repeat", null: false
+    t.boolean "need_code", default: false
+    t.integer "room_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_course_types_on_room_id"
+  end
+
   create_table "headquarters", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
