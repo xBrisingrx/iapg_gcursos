@@ -42,6 +42,14 @@
             <%= link_to 'Ver tipos de cursos', course_types_path, class:"dropdown-item" %>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <%= link_to 'Exámenes', '#', 
+            role: 'button', data: {'bs-toggle': 'dropdown'}, aria: {expanded: 'false'}, class: 'nav-link dropdown-toggle' %>
+          <ul class="dropdown-menu">
+            <%= link_to 'Ver exámenes', tests_path, class:"dropdown-item" %>
+            <%= link_to 'Ver Preguntas', '#', class:"dropdown-item" %>
+          </ul>
+        </li>
         <li class="nav-item">
           <%= link_to 'Otro link', '#', class: 'nav-link', data: { turbo: false } %>
         </li>

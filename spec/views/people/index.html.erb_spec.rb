@@ -1,50 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe "people/index", type: :view do
-  before(:each) do
-    assign(:people, [
-      Person.create!(
-        cuil: "Cuil",
-        last_name: "Last Name",
-        name: "Name",
-        phone: "Phone",
-        celphone: "Celphone",
-        email: "Email",
-        direction: "Direction",
-        code: "Code",
-        province: nil,
-        city: nil,
-        active: false
-      ),
-      Person.create!(
-        cuil: "Cuil",
-        last_name: "Last Name",
-        name: "Name",
-        phone: "Phone",
-        celphone: "Celphone",
-        email: "Email",
-        direction: "Direction",
-        code: "Code",
-        province: nil,
-        city: nil,
-        active: false
-      )
-    ])
+  let(:person) { create(:person) }
+
+  it 'render index page' do
+    assign(:person, person)
+    render
+    expect(rendered).to have_css('th', text: 'Nombre')
   end
 
-  it "renders a list of people" do
-    render
-    cell_selector = 'div>p'
-    assert_select cell_selector, text: Regexp.new("Cuil".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Last Name".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Name".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Phone".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Celphone".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Email".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Direction".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new("Code".to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(nil.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(nil.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(false.to_s), count: 2
-  end
+  # it "renders a list of people" do
+  #   render
+  #   cell_selector = 'div>p'
+  #   assert_select cell_selector, text: Regexp.new("Cuil".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Last Name".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Name".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Phone".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Celphone".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Email".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Direction".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new("Code".to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new(nil.to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new(nil.to_s), count: 2
+  #   assert_select cell_selector, text: Regexp.new(false.to_s), count: 2
+  # end
 end

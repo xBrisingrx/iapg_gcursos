@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_01_160058) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_02_212807) do
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -124,6 +124,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_160058) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "fleet", null: false
+    t.boolean "eliminating", default: false
+    t.integer "score", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -154,6 +164,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_01_160058) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sectors_on_name", unique: true
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "instance", null: false
+    t.string "fleet", null: false
+    t.string "modality", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "cities", "provinces"

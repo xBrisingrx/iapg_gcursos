@@ -13,8 +13,4 @@ FactoryBot.define do
     city { association :city }
     active { true }
   end
-
-  trait :person2 do
-    city { association :madryn }
-  end
 end

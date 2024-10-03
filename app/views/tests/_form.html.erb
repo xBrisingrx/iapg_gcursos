@@ -1,0 +1,48 @@
+<%= form_with(model: test, builder: BootstrapBuilder) do |form| %>
+  <div class="form-group row mb-2">
+    <%= form.label :name, "Nombre"%>
+    <%= form.text_field :name, required: true %>
+    <%= inline_error_for(:name, test) %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :instance, "Instancia" %>
+    <div class="col-6">
+      <%= form.select :instance, [ "Primer instancia", "Recuperatorio" ].map { |instance| [ "#{instance}", instance ] },
+        {:include_blank => "Seleccione instancia del exámen"},
+        class: "form-control",
+        required: true
+      %>
+    </div>
+    <%= inline_error_for(:instance, test, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :fleet, "Flota" %>
+    <div class="col-6">
+      <%= form.select :fleet, [ "Liviana", "Pesada" ].map { |fleet| [ "#{fleet}", fleet ] },
+        {:include_blank => "Seleccione tipo flota"},
+        class: "form-control",
+        required: true
+      %>
+    </div>
+    <%= inline_error_for(:fleet, test, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :modality, "Modalidad" %>
+    <div class="col-6">
+      <%= form.select :modality, [ "Teórico", "Práctico", "Psicométrico" ].map { |modality| [ "#{modality}", modality ] },
+        {:include_blank => "Seleccione modalidad del exámen"},
+        class: "form-control",
+        required: true
+      %>
+    </div>
+    <%= inline_error_for(:modality, test, "offset-3") %>
+  </div>
+
+  <div>
+    <%= form.submit "Guardar" %>
+    <%= link_to "Volver", tests_path, class: "btn btn-sm btn-danger" %>
+  </div>
+<% end %>

@@ -1,11 +1,7 @@
 FactoryBot.define do
   factory :city do
-    name { "Comodoro Rivadavia" }
+    sequence(:name) { |n| "Comodoro Rivadavia x#{n}" }
     province { association :province }
     active { true }
-  end
-
-  trait :madryn do
-    name { "Puerto Madryn" }
   end
 end

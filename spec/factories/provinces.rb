@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :province do
-    name { "Chubut" }
+    sequence(:name) { |n| "Chubut x#{n}" }
     active { true }
   end
 end

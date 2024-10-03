@@ -4,7 +4,7 @@ class Room < ApplicationRecord
   validates :name,
     presence: true,
     uniqueness: { case_sensitive: false, scope: :headquarter_id }
-  
+
   validates :capacity,
     presence: true,
     numericality: { only_integer: true }
@@ -18,5 +18,4 @@ class Room < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "headquarter" ]
   end
-
 end

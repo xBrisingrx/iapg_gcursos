@@ -1,0 +1,16 @@
+<%= tag.tr id: dom_id(test) do %>
+  <td><%= test.name %></td>
+  <td><%= test.instance %></td>
+  <td><%= test.fleet %></td>
+  <td><%= test.modality %></td>
+  <td>
+    <%= link_to edit_test_path(test), 
+      class: "btn btn-warning btn-sm btn-sm btn-icon text-white", title: 'Editar' do %>
+      <i class="bi bi-pencil-square"></i>
+    <% end %>
+    <%= link_to modal_disable_test_path(test), 
+      class: "btn btn-sm btn-icon btn-danger",title: 'Eliminar' ,data: { turbo_frame: "modal"} do %>
+      <i class="bi bi-trash"></i>
+    <% end %>
+  </td>
+<% end %>
