@@ -45,15 +45,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_03_154205) do
     t.index ["sector_id"], name: "index_companies_on_sector_id"
   end
 
-  create_table "company_areas", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_company_areas_on_name", unique: true
-  end
-
   create_table "company_categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -163,8 +154,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_03_154205) do
     t.string "email", limit: 50, null: false
     t.string "direction", limit: 100, null: false
     t.string "code", limit: 6
-    t.integer "province_id", null: false
-    t.integer "city_id", null: false
+    t.integer "province_id"
+    t.integer "city_id"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

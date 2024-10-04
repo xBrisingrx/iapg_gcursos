@@ -36,9 +36,6 @@
     <div class="col-6">
       <%= form.select :room_id, Room.actives.all.collect { |room| [ "#{room.name}", room.id ] },
         {:include_blank => "Seleccione sala"},
-        data: {controller: 'tselect',
-          tselect_ids_value: @room_id
-        },
         required: true
       %>
     </div>
