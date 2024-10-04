@@ -7,6 +7,7 @@ let room_select
 export default class extends Controller {
   static targets = [ "selectCourseType" ]
   connect() {
+    // meti el tomselect aca para poder tener el select en una variable y poder setear el valor 
     room_select = new TomSelect( document.getElementById('course_room_id'), {
       render: {
         no_results:function(data,escape){
@@ -17,7 +18,6 @@ export default class extends Controller {
   }
   select_default_room() {
     const room_id = this.selectCourseTypeTarget.selectedOptions[0].dataset.room
-    document.getElementById('course_room_id-ts-control').value = room_id
     room_select.setValue(room_id)
   }
 }
