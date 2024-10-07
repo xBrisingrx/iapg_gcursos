@@ -1,5 +1,7 @@
 class CourseType < ApplicationRecord
   belongs_to :room
+  has_many :courses
+  
   validates :name, :description, :min_quota, :max_quota, :min_score, :max_score, :passing_score, :number_of_repeat, :fleet, presence: true
   validates :min_quota, :max_quota, :min_score, :max_score, :passing_score, :number_of_repeat, numericality: { only_integer: true }
 
@@ -17,5 +19,12 @@ class CourseType < ApplicationRecord
 
   def disable
     self.update(active: false)
+  end
+
+  def count_yearly_number
+    self.courses
+      .actives
+      .by_year(Time.now.year)
+      .count
   end
 end

@@ -1,5 +1,5 @@
 class CourseTypesController < ApplicationController
-  before_action :set_course_type, only: %i[ show edit update modal_disable disable ]
+  before_action :set_course_type, only: %i[ show edit update modal_disable disable get_yearly_and_general_number ]
 
   # GET /course_types or /course_types.json
   def index
@@ -88,6 +88,10 @@ class CourseTypesController < ApplicationController
           locals: { message: "No se pudo dar de baja a la empresa.", status_class: "danger" }) ],
         status: :unprocessable_entity
     end
+  end
+
+  def get_yearly_and_general_number
+    render json: {yearly: @course_type.count_yearly_number , general: @course_type.courses.actives.count}
   end
 
   private

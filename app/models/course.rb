@@ -3,7 +3,11 @@ class Course < ApplicationRecord
   belongs_to :room
   belongs_to :company, optional: true
 
+  validates :year_number, :general_number, uniqueness: { scope: :course_type_id ,allow_blank: true }
+
   scope :actives, -> { where(active: true) }
+  scope :count_general_number, -> (course_type_id) { where( active:true ).where( course_type_id: course_type_id ).count }
+  scope :by_year, -> (year) { where('extract(year from created_at) = ?', year) }
 
   def disable
     self.update(active: false)
