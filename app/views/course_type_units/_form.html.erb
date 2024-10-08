@@ -1,0 +1,57 @@
+<%= form_with(model: course_type_unit) do |form| %>
+  <% if course_type_unit.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(course_type_unit.errors.count, "error") %> prohibited this course_type_unit from being saved:</h2>
+
+      <ul>
+        <% course_type_unit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :course_type_id, style: "display: block" %>
+    <%= form.text_field :course_type_id %>
+  </div>
+
+  <div>
+    <%= form.label :unit_id, style: "display: block" %>
+    <%= form.text_field :unit_id %>
+  </div>
+
+  <div>
+    <%= form.label :day, style: "display: block" %>
+    <%= form.number_field :day %>
+  </div>
+
+  <div>
+    <%= form.label :start_hour, style: "display: block" %>
+    <%= form.time_field :start_hour %>
+  </div>
+
+  <div>
+    <%= form.label :end_hour, style: "display: block" %>
+    <%= form.time_field :end_hour %>
+  </div>
+
+  <div>
+    <%= form.label :start_brake, style: "display: block" %>
+    <%= form.time_field :start_brake %>
+  </div>
+
+  <div>
+    <%= form.label :end_brake, style: "display: block" %>
+    <%= form.time_field :end_brake %>
+  </div>
+
+  <div>
+    <%= form.label :is_by_turn, style: "display: block" %>
+    <%= form.check_box :is_by_turn %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
