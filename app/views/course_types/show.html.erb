@@ -1,10 +1,56 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @course_type %>
-
-<div>
-  <%= link_to "Edit this course type", edit_course_type_path(@course_type) %> |
-  <%= link_to "Back to course types", course_types_path %>
-
-  <%= button_to "Destroy this course type", @course_type, method: :delete %>
-</div>
+  <div class="mb-3">
+    <label class="form-label">Descripción</label>
+    <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.description %>  >
+  </div>
+  <div class="mb-3 row">
+    <div class="col-6">
+      <label class="form-label">Cupo mínimo</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.min_quota %>  >
+    </div>
+    <div class="col-6">
+      <label class="form-label">Cupo máximo</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.max_quota %>  >
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-4">
+      <label class="form-label">Nota mínima</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.min_score %>  >
+    </div>
+    <div class="col-4">
+      <label class="form-label">Nota máxima</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.max_score %>  >
+    </div>
+    <div class="col-4">
+      <label class="form-label">Aprueba con</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.passing_score %>  >
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-6">
+      <label class="form-label">Recuperatorios</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.number_of_repeat %>  >
+    </div>
+    <div class="col-6">
+      <label class="form-label">Necesita código</label>
+      <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.need_code ? "Si" : "No" %>  >
+    </div>
+  </div>
+  <h2>Módulos</h2>
+  <% @course_type.course_type_units.order(:day).each do |unit| %>
+    <h3>Día <%= unit.day %></h3>
+    <div class="mb-3 row">
+      <div class="col-4">
+        <label class="form-label">Módulo</label>
+        <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= unit.unit.name %>  >
+      </div>
+      <div class="col-4">
+        <label class="form-label">Horario</label>
+        <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= unit.schedule %>  >
+      </div>
+      <div class="col-4">
+        <label class="form-label">Aprueba con</label>
+        <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.passing_score %>  >
+      </div>
+    </div>
+  <% end %>

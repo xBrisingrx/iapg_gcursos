@@ -12,7 +12,8 @@ class CourseTypeUnitsController < ApplicationController
 
   # GET /course_type_units/new
   def new
-    @course_type_unit = CourseTypeUnit.new
+    @course_type = CourseType.find(params[:course_type_id])
+    @course_type_unit = @course_type.course_type_units.build
   end
 
   # GET /course_type_units/1/edit

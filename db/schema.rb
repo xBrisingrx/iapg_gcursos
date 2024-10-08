@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_04_153807) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_07_225751) do
   create_table "cities", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -53,6 +53,21 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_153807) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_company_categories_on_name", unique: true
+  end
+
+  create_table "course_type_units", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "course_type_id", null: false
+    t.bigint "unit_id", null: false
+    t.integer "day"
+    t.time "start_hour"
+    t.time "end_hour"
+    t.time "start_brake"
+    t.time "end_brake"
+    t.boolean "is_by_turn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_type_id"], name: "index_course_type_units_on_course_type_id"
+    t.index ["unit_id"], name: "index_course_type_units_on_unit_id"
   end
 
   create_table "course_types", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -240,6 +255,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_04_153807) do
   add_foreign_key "companies", "iva_conditions"
   add_foreign_key "companies", "provinces"
   add_foreign_key "companies", "sectors"
+  add_foreign_key "course_type_units", "course_types"
+  add_foreign_key "course_type_units", "units"
   add_foreign_key "course_types", "rooms"
   add_foreign_key "course_unit_tests", "course_units"
   add_foreign_key "course_unit_tests", "tests"

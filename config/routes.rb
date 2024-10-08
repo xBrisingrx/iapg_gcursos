@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :course_type_units
   resources :instructors, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
@@ -24,6 +23,7 @@ Rails.application.routes.draw do
     get "modal_disable", on: :member
     put "disable", on: :member
     get "get_yearly_and_general_number", on: :member
+    resources :course_type_units
   end
   resources :sectionals, except: [ :destroy ] do
     get "modal_disable", on: :member

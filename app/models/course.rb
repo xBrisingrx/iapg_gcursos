@@ -4,6 +4,7 @@ class Course < ApplicationRecord
   belongs_to :company, optional: true
 
   validates :year_number, :general_number, uniqueness: { scope: :course_type_id ,allow_blank: true }
+  # validates :company_id, required: 
 
   scope :actives, -> { where(active: true) }
   scope :count_general_number, -> (course_type_id) { where( active:true ).where( course_type_id: course_type_id ).count }

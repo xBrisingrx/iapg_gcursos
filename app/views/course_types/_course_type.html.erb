@@ -9,6 +9,14 @@
   <td><%= course_type.number_of_repeat %></td>
   <td><%= course_type.need_code ? "Si" : "No" %></td>
   <td>
+    <%= link_to new_course_type_course_type_unit_path(course_type), 
+      class: "btn btn-info btn-sm btn-sm btn-icon text-white",title: 'Agregar módulo' ,data: { turbo_frame: "modal"} do %>
+      <i class="bi bi-plus"></i>
+    <% end %>
+    <%= link_to course_type_path(course_type), 
+      class: "btn btn-success btn-sm btn-sm btn-icon text-white",title: 'Detalle' ,data: { turbo_frame: "_top"} do %>
+      <i class="bi bi-eye"></i>
+    <% end %>
     <%= link_to edit_course_type_path(course_type), 
       class: "btn btn-warning btn-sm btn-sm btn-icon text-white",title: 'Editar' ,data: { turbo_frame: "modal"} do %>
       <i class="bi bi-pencil-square"></i>
@@ -19,3 +27,4 @@
     <% end %>
   </td>
 <% end %>
+

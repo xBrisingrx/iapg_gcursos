@@ -1,57 +1,59 @@
-<%= form_with(model: course_type_unit) do |form| %>
-  <% if course_type_unit.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(course_type_unit.errors.count, "error") %> prohibited this course_type_unit from being saved:</h2>
-
-      <ul>
-        <% course_type_unit.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_with(model: [ course_type, course_type_unit ], builder: BootstrapBuilder) do |form| %>
+  <div class="form-group row mb-2">
+    <%= form.label :unit_id, "Módulo" %>
+    <div class="col-6">
+      <%= form.select :unit_id, Unit.actives.all.collect { |unit| [ "#{unit.name}", unit.id ] },
+        {:include_blank => "Seleccione módulo"},
+        data: {controller: 'tselect',
+          tselect_ids_value: @unit_id
+        },
+        required: true
+      %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :course_type_id, style: "display: block" %>
-    <%= form.text_field :course_type_id %>
+    <%= inline_error_for(:unit_id, course_type, "offset-3") %>
   </div>
 
-  <div>
-    <%= form.label :unit_id, style: "display: block" %>
-    <%= form.text_field :unit_id %>
+  <div class="form-group row mb-2">
+    <%= form.label :day, "Día" %>
+    <div class="col-6">
+      <%= form.select :day, [1,2,3].each { |day| [ "#{day}", day ] },
+        {:include_blank => "Seleccione día"},
+        data: {controller: 'tselect',
+          tselect_ids_value: @day
+        },
+        required: true
+      %>
+    </div>
+    <%= inline_error_for(:day, course_type_unit, "offset-3") %>
   </div>
 
-  <div>
-    <%= form.label :day, style: "display: block" %>
-    <%= form.number_field :day %>
-  </div>
-
-  <div>
-    <%= form.label :start_hour, style: "display: block" %>
+  <div class="form-group row mb-2">
+    <%= form.label :start_hour %>
     <%= form.time_field :start_hour %>
   </div>
 
-  <div>
-    <%= form.label :end_hour, style: "display: block" %>
+  <div class="form-group row mb-2">
+    <%= form.label :end_hour %>
     <%= form.time_field :end_hour %>
   </div>
 
-  <div>
-    <%= form.label :start_brake, style: "display: block" %>
+  <div class="form-group row mb-2">
+    <%= form.label :start_brake %>
     <%= form.time_field :start_brake %>
   </div>
 
-  <div>
-    <%= form.label :end_brake, style: "display: block" %>
+  <div class="form-group row mb-2">
+    <%= form.label :end_brake %>
     <%= form.time_field :end_brake %>
   </div>
 
-  <div>
-    <%= form.label :is_by_turn, style: "display: block" %>
-    <%= form.check_box :is_by_turn %>
+  <div class="form-check mb-2">
+    <%= form.check_box :is_by_turn, class: "form-check-input" %>
+    <%= form.label :is_by_turn, "Es por turnos" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class='mt-2'>
+    <%= form.submit 'Guardar' %>
+    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</button>
   </div>
 <% end %>
