@@ -22,10 +22,18 @@ class CourseTypeUnitsController < ApplicationController
 
   # POST /course_type_units or /course_type_units.json
   def create
-    @course_type_unit = CourseTypeUnit.new(course_type_unit_params)
+    @course_type = CourseType.find(params[:course_type_id])
+    @course_type_unit = @course_type.course_type_units.new(course_type_unit_params)
 
     respond_to do |format|
       if @course_type_unit.save
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.replace("toasts",
+              partial: "shared/toasts",
+              locals: { message: "Módulo agregado.", status_class: "primary" })
+          ], status: :ok
+        }
         format.html { redirect_to @course_type_unit, notice: "Course type unit was successfully created." }
         format.json { render :show, status: :created, location: @course_type_unit }
       else
@@ -66,6 +74,6 @@ class CourseTypeUnitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_type_unit_params
-      params.require(:course_type_unit).permit(:course_type_id, :unit_id, :day, :start_hour, :end_hour, :start_brake, :end_brake, :is_by_turn)
+      params.require(:course_type_unit).permit(:course_type_id, :unit_id, :day, :start_hour, :end_hour, :start_brake, :end_brake, :is_by_turn, :shift_time)
     end
 end

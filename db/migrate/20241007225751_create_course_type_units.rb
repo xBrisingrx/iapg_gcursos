@@ -9,6 +9,7 @@ class CreateCourseTypeUnits < ActiveRecord::Migration[7.2]
       t.time :start_brake
       t.time :end_brake
       t.boolean :is_by_turn
+      t.integer :shift_time
 
       t.timestamps
     end

@@ -30,26 +30,37 @@
   <div class="form-group row mb-2">
     <%= form.label :start_hour %>
     <%= form.time_field :start_hour %>
+    <%= inline_error_for(:start_hour, course_type, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
     <%= form.label :end_hour %>
     <%= form.time_field :end_hour %>
+    <%= inline_error_for(:unit_id, course_type, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
     <%= form.label :start_brake %>
     <%= form.time_field :start_brake %>
+    <%= inline_error_for(:start_brake, course_type, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
     <%= form.label :end_brake %>
     <%= form.time_field :end_brake %>
+    <%= inline_error_for(:end_brake, course_type, "offset-3") %>
   </div>
 
   <div class="form-check mb-2">
     <%= form.check_box :is_by_turn, class: "form-check-input" %>
     <%= form.label :is_by_turn, "Es por turnos" %>
+    <%= inline_error_for(:is_by_turn, course_type, "offset-3") %>
+  </div>
+
+  <div class="form-group row mb-2">
+    <%= form.label :shift_time, "Tiempo del turno" %>
+    <%= form.number_field :shift_time %>
+    <%= inline_error_for(:shift_time, course_type, "offset-3") %>
   </div>
 
   <div class='mt-2'>

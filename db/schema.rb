@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_07_225751) do
     t.time "start_brake"
     t.time "end_brake"
     t.boolean "is_by_turn"
+    t.integer "shift_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_type_id"], name: "index_course_type_units_on_course_type_id"

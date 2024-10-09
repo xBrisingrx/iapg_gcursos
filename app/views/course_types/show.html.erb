@@ -37,20 +37,28 @@
     </div>
   </div>
   <h2>Módulos</h2>
+  <% day = @course_type.course_type_units.first&.day %>
   <% @course_type.course_type_units.order(:day).each do |unit| %>
-    <h3>Día <%= unit.day %></h3>
+    <% if day != unit.day || @course_type.course_type_units.first.id == unit.id %>
+      <h3>Día <%= unit.day %></h3>
+      <% day = unit.day %>
+    <% end %>
     <div class="mb-3 row">
       <div class="col-4">
         <label class="form-label">Módulo</label>
-        <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= unit.unit.name %>  >
+        <p><%= unit.unit.name %></p>
       </div>
       <div class="col-4">
         <label class="form-label">Horario</label>
-        <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= unit.schedule %>  >
+        <p><%= unit.schedule %></p>
       </div>
       <div class="col-4">
-        <label class="form-label">Aprueba con</label>
-        <input type="text" class="form-control" placeholder="Disabled input" disabled value=<%= @course_type.passing_score %>  >
+        <label class="form-label">Turnos</label>
+        <% if unit.is_by_turn %>
+          <p>Turnos de <%= unit.shift_time %> minutos.</p>
+          <% else %>
+          <p>No es por turnos.</p>
+        <% end %>
       </div>
     </div>
   <% end %>
