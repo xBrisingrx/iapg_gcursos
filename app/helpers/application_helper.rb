@@ -10,4 +10,8 @@ module ApplicationHelper
     end
     html.join.html_safe
   end
+
+  def date_format date
+		date.strftime('%d-%m-%y')
+	end
 end
