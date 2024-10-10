@@ -1,11 +1,3 @@
-<% content_for :title, "New instructor" %>
-
-<h1>New instructor</h1>
-
-<%= render "form", instructor: @instructor %>
-
-<br>
-
-<div>
-  <%= link_to "Back to instructors", instructors_path %>
-</div>
+<%= render 'shared/modal', title: "Nuevo instructor", fade_in: true do %>
+  <%= render "form", instructor: @instructor %>
+<% end %>

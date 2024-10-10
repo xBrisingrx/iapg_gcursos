@@ -1,16 +1,36 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Instructors" %>
-
-<h1>Instructors</h1>
-
-<div id="instructors">
-  <% @instructors.each do |instructor| %>
-    <%= render instructor %>
-    <p>
-      <%= link_to "Show this instructor", instructor %>
-    </p>
-  <% end %>
+<h1>Instructores</h1>
+<div class="row justify-content-between mb-2">
+  <div class="col-4">
+    <%= link_to "Registrar instructor", 
+      new_instructor_path,
+      data: { turbo_frame: "modal"},
+      class: "btn btn-sm btn-primary" %>
+  </div>
+  <div class="col-6">
+    <%= search_form_for @query, method: :get, data: { controller: "filter", filter_target: "form", turbo_frame: "table" } do |form| %>
+      <%= form.search_field :name_cont,
+          placeholder: "Filtrar...",
+          class: "form-control form-control-sm",
+          autocomplete: "off",
+          data: { action: "input->filter#search" }
+        %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New instructor", new_instructor_path %>
+<%= turbo_frame_tag 'table', id: 'instructors_table' do %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id='tbody_instructors'>
+        <%= render @instructors %>
+      </tbody>
+    </table>
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
+<% end %>

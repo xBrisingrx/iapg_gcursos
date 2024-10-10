@@ -1,9 +1,10 @@
 class InstructorsController < ApplicationController
-  before_action :set_instructor, only: %i[ show edit update destroy ]
+  before_action :set_instructor, only: %i[ show edit update modal_disable disable ]
 
   # GET /instructors or /instructors.json
   def index
-    @instructors = Instructor.all
+    @query = Instructor.ransack(params[:query])
+    @pagy, @instructors = pagy(@query.result)
   end
 
   # GET /instructors/1 or /instructors/1.json
@@ -25,6 +26,16 @@ class InstructorsController < ApplicationController
 
     respond_to do |format|
       if @instructor.save
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.prepend("tbody_instructors",
+              partial: "instructors/instructor",
+              locals: { instructor: @instructor }),
+              turbo_stream.replace("toasts",
+                partial: "shared/toasts",
+                locals: { message: "Instructor registrado con éxito.", status_class: "primary" })
+          ]
+        }
         format.html { redirect_to @instructor, notice: "Instructor was successfully created." }
         format.json { render :show, status: :created, location: @instructor }
       else
@@ -38,6 +49,16 @@ class InstructorsController < ApplicationController
   def update
     respond_to do |format|
       if @instructor.update(instructor_params)
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.replace(@instructor,
+              partial: "instructors/instructor",
+              locals: { instructor: @instructor }),
+              turbo_stream.replace("toasts",
+                partial: "shared/toasts",
+                locals: { message: "Datos actulizados.", status_class: "primary" })
+          ]
+        }
         format.html { redirect_to @instructor, notice: "Instructor was successfully updated." }
         format.json { render :show, status: :ok, location: @instructor }
       else
@@ -47,13 +68,22 @@ class InstructorsController < ApplicationController
     end
   end
 
-  # DELETE /instructors/1 or /instructors/1.json
-  def destroy
-    @instructor.destroy!
+  def modal_disable;end
 
-    respond_to do |format|
-      format.html { redirect_to instructors_path, status: :see_other, notice: "Instructor was successfully destroyed." }
-      format.json { head :no_content }
+  def disable
+    if @instructor.disable
+        render turbo_stream: [
+          turbo_stream.remove(@instructor),
+          turbo_stream.replace("toasts",
+            partial: "shared/toasts",
+            locals: { message: "Instructor dado de baja.", status_class: "primary" })
+        ], status: :ok
+    else
+      render turbo_stream: [
+        turbo_stream.replace("toasts",
+          partial: "shared/toasts",
+          locals: { message: "No se pudo dar de baja al instructor.", status_class: "danger" }) ],
+        status: :unprocessable_entity
     end
   end
 

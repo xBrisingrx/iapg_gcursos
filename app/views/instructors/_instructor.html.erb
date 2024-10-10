@@ -1,17 +1,14 @@
-<div id="<%= dom_id instructor %>">
-  <p>
-    <strong>Name:</strong>
-    <%= instructor.name %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= instructor.description %>
-  </p>
-
-  <p>
-    <strong>Active:</strong>
-    <%= instructor.active %>
-  </p>
-
-</div>
+<%= tag.tr id: dom_id(instructor) do %>
+  <td><%= instructor.name %></td>
+  <td><%= instructor.description %></td>
+  <td>
+    <%= link_to edit_instructor_path(instructor), 
+      class: "btn btn-warning btn-sm btn-sm btn-icon text-white",title: 'Editar' ,data: { turbo_frame: "modal"} do %>
+      <i class="bi bi-pencil-square"></i>
+    <% end %>
+    <%= link_to modal_disable_instructor_path(instructor), 
+      class: "btn btn-danger btn-sm btn-icon",title: 'Eliminar' ,data: { turbo_frame: "modal"} do %>
+      <i class="bi bi-trash"></i>
+    <% end %>
+  </td>
+<% end %>
