@@ -21,6 +21,7 @@ export default class extends Controller {
     const room_id = this.selectCourseTypeTarget.selectedOptions[0].dataset.room
     room_select.setValue(room_id)
     this.get_yearly_and_general_number()
+    this.set_units()
   }
 
   get_yearly_and_general_number() {
@@ -29,8 +30,17 @@ export default class extends Controller {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        document.getElementById('course_year_number').value = data.yearly
-        document.getElementById('course_general_number').value = data.general
+        document.getElementById('course_year_number').value = data.yearly + 1
+        document.getElementById('course_general_number').value = data.general + 1
       })
+  }
+
+  async set_units() {
+    let course_units
+    const course_type_id = this.selectCourseTypeTarget.value
+    const url = `/course_types/${course_type_id}/course_type_units.json`
+    const fetch_units = await fetch(url)
+    const response = await fetch_units.json()
+    console.log(response)
   }
 }

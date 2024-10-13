@@ -1,5 +1,5 @@
 <%= tag.tr id: dom_id(course) do %>
-  <td><%= course.date %></td>
+  <td><%= date_format(course.date) %></td>
   <td><%= course.course_type.name %></td>
   <td><%= course.room.name %></td>
   <td><%= course.company&.name %></td>
