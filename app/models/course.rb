@@ -26,4 +26,10 @@ class Course < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "room", "company", "course_type" ]
   end
+
+  private
+  def instructor_available
+    # tengo que buscar los cursos de cierta fecha y ahi ver que no este mi instructor en ese curso
+    Course.where(date: date).joins(:course_instructors).where(course_instructors: {instructor_id: instructor_id}).count == 0
+  end
 end
