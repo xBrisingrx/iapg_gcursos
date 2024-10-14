@@ -2,6 +2,11 @@ class Course < ApplicationRecord
   belongs_to :course_type
   belongs_to :room
   belongs_to :company, optional: true
+  has_many :course_instructors
+  has_many :instructors, through: :course_instructors
+  has_many :units, through: :course_instructors
+
+  accepts_nested_attributes_for :course_instructors
 
   validates :year_number, :general_number, uniqueness: { scope: :course_type_id ,allow_blank: true }
   # validates :company_id, required: 
