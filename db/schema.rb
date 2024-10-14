@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_07_225751) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
+  create_table "calendar_courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "course_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_calendar_courses_on_course_id"
+  end
+
+  create_table "calendar_instructors", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "instructor_id", null: false
+    t.datetime "date", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instructor_id"], name: "index_calendar_instructors_on_instructor_id"
+  end
+
   create_table "cities", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "active", default: true
@@ -53,6 +71,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_07_225751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_company_categories_on_name", unique: true
+  end
+
+  create_table "course_instructors", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "instructor_id", null: false
+    t.bigint "unit_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_instructors_on_course_id"
+    t.index ["instructor_id"], name: "index_course_instructors_on_instructor_id"
+    t.index ["unit_id"], name: "index_course_instructors_on_unit_id"
   end
 
   create_table "course_type_units", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -250,12 +280,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_07_225751) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "calendar_courses", "courses"
+  add_foreign_key "calendar_instructors", "instructors"
   add_foreign_key "cities", "provinces"
   add_foreign_key "companies", "cities"
   add_foreign_key "companies", "company_categories"
   add_foreign_key "companies", "iva_conditions"
   add_foreign_key "companies", "provinces"
   add_foreign_key "companies", "sectors"
+  add_foreign_key "course_instructors", "courses"
+  add_foreign_key "course_instructors", "instructors"
+  add_foreign_key "course_instructors", "units"
   add_foreign_key "course_type_units", "course_types"
   add_foreign_key "course_type_units", "units"
   add_foreign_key "course_types", "rooms"
