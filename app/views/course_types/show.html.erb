@@ -53,11 +53,9 @@
         <p><%= unit.schedule %></p>
       </div>
       <div class="col-4">
-        <label class="form-label">Turnos</label>
         <% if unit.is_by_turn %>
-          <p>Turnos de <%= unit.shift_time %> minutos.</p>
-          <% else %>
-          <p>No es por turnos.</p>
+          <label class="form-label">Turnos</label>
+            <p>Turnos de <%= unit.shift_time %> minutos.</p>
         <% end %>
       </div>
     </div>

@@ -28,25 +28,25 @@
   </div>
 
   <div class="form-group row mb-2">
-    <%= form.label :start_hour %>
+    <%= form.label :start_hour, "Hora inicio" %>
     <%= form.time_field :start_hour %>
     <%= inline_error_for(:start_hour, course_type, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
-    <%= form.label :end_hour %>
+    <%= form.label :end_hour, "Hora fin" %>
     <%= form.time_field :end_hour %>
     <%= inline_error_for(:unit_id, course_type, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
-    <%= form.label :start_brake %>
+    <%= form.label :start_brake, "Inicio descanso" %>
     <%= form.time_field :start_brake %>
     <%= inline_error_for(:start_brake, course_type, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
-    <%= form.label :end_brake %>
+    <%= form.label :end_brake, "Fin descanso" %>
     <%= form.time_field :end_brake %>
     <%= inline_error_for(:end_brake, course_type, "offset-3") %>
   </div>
