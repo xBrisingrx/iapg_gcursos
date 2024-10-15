@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update modal_disable disable ]
+  before_action :set_course, only: %i[ show edit update modal_disable disable turns_by_unit ]
 
   # GET /courses or /courses.json
   def index
@@ -9,6 +9,8 @@ class CoursesController < ApplicationController
 
   # GET /courses/1 or /courses/1.json
   def show
+    @course_people = CoursePerson.where(course_id: params[:course_id])
+    @units = @course.course_type.units
   end
 
   # GET /courses/new
@@ -65,6 +67,11 @@ class CoursesController < ApplicationController
           locals: { message: "No se pudo dar de baja el curso.", status_class: "danger" }) ],
         status: :unprocessable_entity
     end
+  end
+
+  def turns_by_unit
+    @query = @course.course_people.where(unit_id: params[:unit_id]).order(:from_hour)
+    @pagy, @course_people = pagy(@query)
   end
 
   private

@@ -29,7 +29,7 @@
       <% if unit.is_by_turn %>
         <label class="form-label">Turnos</label>
         <p>Turnos de <%= unit.shift_time %> minutos.
-          <%= link_to course_course_people_path(@course), 
+          <%= link_to turns_by_unit_course_path(course_id: @course.id, unit_id: unit.id), 
             class: "btn btn-info btn-sm btn-icon text-white",title: 'Ver personas registradas', data: { turbo_frame: "modal"} do %>
             <i class="bi bi-people"></i>
           <% end %>

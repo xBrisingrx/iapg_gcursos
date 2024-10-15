@@ -30,6 +30,7 @@ class CoursePeopleController < ApplicationController
     @course_person.date = @course.from_date
     respond_to do |format|
       if @course_person.save
+        @course_person.assign_turn
         format.turbo_stream {
           render turbo_stream: [
               turbo_stream.replace("toasts",

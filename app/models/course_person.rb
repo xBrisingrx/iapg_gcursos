@@ -8,11 +8,8 @@ class CoursePerson < ApplicationRecord
   belongs_to :fleet_category
   belongs_to :unit
 
-  after_create :assign_turn
-
-  private
   def assign_turn
-    return if self.course.course_type.days == 1 || CoursePerson.where(course_id: self.course_id, person_id: self.person_id).count > 1
+    # return if self.course.course_type.days == 1 || CoursePerson.where(course_id: self.course_id, person_id: self.person_id).count > 1
     units = CourseTypeUnit.where(course_type_id: self.course.course_type_id).where.not(unit_id: self.unit_id)
     course_date = self.course.from_date
     units.each do |unit|
@@ -28,7 +25,8 @@ class CoursePerson < ApplicationRecord
       )
       course_person.date = course_date + (unit.day - 1).day
       if unit.is_by_turn
-        course_person.hour = set_hour(unit.unit_id, self.course_id, self.date, unit.shift_time)
+        course_person.from_hour = set_hour(unit.unit_id, self.course_id, course_person.date, unit.shift_time)
+        course_person.to_hour = course_person.from_hour + unit.shift_time.minutes
       end
       course_person.save
     end
@@ -56,9 +54,9 @@ class CoursePerson < ApplicationRecord
     cp = CoursePerson
           .where(person_id: self.person_id)
           .where(date: date)
-          .where("hour >= ?", hour)
-          .where("hour < ?", end_hour)
+    cp_from_hour = cp.where(from_hour: hour)
+    cp_to_hour = cp.where(to_hour: end_hour)
     debugger
-    cp.empty?
+    cp_from_hour.empty? && cp_to_hour.empty?
   end
 end

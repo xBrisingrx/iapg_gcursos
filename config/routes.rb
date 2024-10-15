@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :courses, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
+    get "turns_by_unit", on: :member
     resources :course_people, only: [ :index, :new, :create ]
   end
   resources :units, except: [ :destroy ] do
