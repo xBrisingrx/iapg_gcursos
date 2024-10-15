@@ -44,6 +44,7 @@ export default class extends Controller {
 
   async set_units() {
     const units = document.getElementById('units')
+    units.innerHTML  =  ''
     const course_type_id = this.selectCourseTypeTarget.value
     const url = `/course_types/${course_type_id}/course_type_units.json`
     const fetch_units = await fetch(url)

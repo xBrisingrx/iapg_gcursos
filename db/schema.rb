@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_14_232451) do
   create_table "calendar_courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "course_id", null: false
@@ -73,6 +73,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
     t.index ["name"], name: "index_company_categories_on_name", unique: true
   end
 
+  create_table "company_managers", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "person_id", null: false
+    t.string "email"
+    t.string "function"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_managers_on_company_id"
+    t.index ["person_id"], name: "index_company_managers_on_person_id"
+  end
+
   create_table "course_instructors", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.bigint "course_id", null: false
     t.bigint "instructor_id", null: false
@@ -83,6 +95,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
     t.index ["course_id"], name: "index_course_instructors_on_course_id"
     t.index ["instructor_id"], name: "index_course_instructors_on_instructor_id"
     t.index ["unit_id"], name: "index_course_instructors_on_unit_id"
+  end
+
+  create_table "course_people", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "person_id", null: false
+    t.bigint "manager_id"
+    t.bigint "company_id", null: false
+    t.bigint "operator_id"
+    t.bigint "inscription_motive_id", null: false
+    t.bigint "fleet_category_id", null: false
+    t.bigint "unit_id", null: false
+    t.date "date", null: false
+    t.time "hour"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_course_people_on_company_id"
+    t.index ["course_id"], name: "index_course_people_on_course_id"
+    t.index ["fleet_category_id"], name: "index_course_people_on_fleet_category_id"
+    t.index ["inscription_motive_id"], name: "index_course_people_on_inscription_motive_id"
+    t.index ["manager_id"], name: "index_course_people_on_manager_id"
+    t.index ["operator_id"], name: "index_course_people_on_operator_id"
+    t.index ["person_id"], name: "index_course_people_on_person_id"
+    t.index ["unit_id"], name: "index_course_people_on_unit_id"
   end
 
   create_table "course_type_units", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -142,7 +178,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
   end
 
   create_table "courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.date "date", null: false
+    t.date "from_date", null: false
     t.integer "year_number", null: false
     t.integer "general_number", null: false
     t.boolean "is_company", default: false
@@ -153,9 +189,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "to_date"
     t.index ["company_id"], name: "index_courses_on_company_id"
     t.index ["course_type_id"], name: "index_courses_on_course_type_id"
     t.index ["room_id"], name: "index_courses_on_room_id"
+  end
+
+  create_table "fleet_categories", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "headquarters", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -172,6 +217,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
     t.index ["name"], name: "index_headquarters_on_name", unique: true
     t.index ["province_id"], name: "index_headquarters_on_province_id"
     t.index ["sectional_id"], name: "index_headquarters_on_sectional_id"
+  end
+
+  create_table "inscription_motives", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "instructors", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
@@ -269,6 +322,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "turns", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "unit_id", null: false
+    t.bigint "person_id"
+    t.date "date"
+    t.time "hour"
+    t.boolean "available", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_turns_on_course_id"
+    t.index ["person_id"], name: "index_turns_on_person_id"
+    t.index ["unit_id"], name: "index_turns_on_unit_id"
+  end
+
   create_table "units", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -288,9 +355,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
   add_foreign_key "companies", "iva_conditions"
   add_foreign_key "companies", "provinces"
   add_foreign_key "companies", "sectors"
+  add_foreign_key "company_managers", "companies"
+  add_foreign_key "company_managers", "people"
   add_foreign_key "course_instructors", "courses"
   add_foreign_key "course_instructors", "instructors"
   add_foreign_key "course_instructors", "units"
+  add_foreign_key "course_people", "companies"
+  add_foreign_key "course_people", "companies", column: "operator_id"
+  add_foreign_key "course_people", "courses"
+  add_foreign_key "course_people", "fleet_categories"
+  add_foreign_key "course_people", "inscription_motives"
+  add_foreign_key "course_people", "people"
+  add_foreign_key "course_people", "people", column: "manager_id"
+  add_foreign_key "course_people", "units"
   add_foreign_key "course_type_units", "course_types"
   add_foreign_key "course_type_units", "units"
   add_foreign_key "course_types", "rooms"
@@ -310,4 +387,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_135449) do
   add_foreign_key "rooms", "headquarters"
   add_foreign_key "sectionals", "cities"
   add_foreign_key "sectionals", "provinces"
+  add_foreign_key "turns", "courses"
+  add_foreign_key "turns", "people"
+  add_foreign_key "turns", "units"
 end

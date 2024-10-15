@@ -1,10 +1,41 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @course %>
-
-<div>
-  <%= link_to "Edit this course", edit_course_path(@course) %> |
-  <%= link_to "Back to courses", courses_path %>
-
-  <%= button_to "Destroy this course", @course, method: :delete %>
+<h3><%= @course.course_type.name %></h3>
+<div class="row">
+  <div class="col-4">
+    <p>Desde:</p>
+    <p><%= date_format(@course.from_date) %></p>
+  </div>
+  <div class="col-4">
+    <p>Hasta:</p>
+    <p><%= date_format(@course.to_date) %></p>
+  </div>
 </div>
+<h2>Módulos</h2>
+<% day = @course.course_type.course_type_units.first&.day %>
+<% @course.course_type.course_type_units.order(:day).each do |unit| %>
+  <% if day != unit.day || @course.course_type.course_type_units.first.id == unit.id %>
+    <h3>Día <%= unit.day %></h3>
+    <% day = unit.day %>
+  <% end %>
+  <div class="mb-3 row">
+    <div class="col-3">
+      <label class="form-label">Módulo</label>
+      <p><%= unit.unit.name %></p>
+    </div>
+    <div class="col-3">
+      <label class="form-label">Horario</label>
+      <p><%= unit.schedule %></p>
+    </div>
+    <div class="col-3">
+      <% if unit.is_by_turn %>
+        <label class="form-label">Turnos</label>
+        <p>Turnos de <%= unit.shift_time %> minutos.
+          <%= link_to course_course_people_path(@course), 
+            class: "btn btn-info btn-sm btn-icon text-white",title: 'Ver personas registradas', data: { turbo_frame: "modal"} do %>
+            <i class="bi bi-people"></i>
+          <% end %>
+        </p>
+        
+      <% end %>
+    </div>
+  </div>
+<% end %>

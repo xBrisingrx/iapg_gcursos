@@ -36,7 +36,7 @@ class CourseType < ApplicationRecord
     day = self.course_type_units.first.day
     units = Array.new
     self.course_type_units.each do |unit|
-      if day != unit.day 
+      if day != unit.day
         units_by_day << units
         units = Array.new
         day = unit.day
@@ -47,5 +47,9 @@ class CourseType < ApplicationRecord
       ]
     end
     units_by_day
+  end
+
+  def days
+    self.course_type_units.select(:day).distinct.count
   end
 end

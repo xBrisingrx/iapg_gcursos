@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :courses, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
+    resources :course_people, only: [ :index, :new, :create ]
   end
   resources :units, except: [ :destroy ] do
     get "modal_disable", on: :member
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
   resources :companies, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
+    resources :managers, only: [ :index, :new, :create ]
   end
   resources :iva_conditions, except: [ :destroy ] do
     get "modal_disable", on: :member

@@ -26,16 +26,6 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.prepend("tbody_courses",
-              partial: "courses/course",
-              locals: { course: @course }),
-            turbo_stream.replace("toasts",
-              partial: "shared/toasts",
-              locals: { message: "Curso registrado", status_class: "primary" })
-          ]
-        }
         format.html { redirect_to courses_path, notice: "Curso registrado." }
         format.json { render :show, status: :created, location: @course }
       else
@@ -49,15 +39,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.replace(@course),
-            turbo_stream.replace("toasts",
-              partial: "shared/toasts",
-              locals: { message: "Curso actualizado", status_class: "primary" })
-          ]
-        }
-        format.html { redirect_to @course, notice: "Course was successfully updated." }
+        format.html { redirect_to courses_path, notice: "Courso actualizado." }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -93,8 +75,8 @@ class CoursesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:date, :year_number, :general_number, :is_company, :course_type_id, 
+      params.require(:course).permit(:from_date, :year_number, :general_number, :is_company, :course_type_id,
         :room_id, :company_id, :active,
-        course_instructors_attributes: [:id, :instructor_id, :unit_id])
+        course_instructors_attributes: [ :id, :instructor_id, :unit_id ])
     end
 end
