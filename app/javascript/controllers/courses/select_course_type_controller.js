@@ -49,8 +49,6 @@ export default class extends Controller {
     const url = `/course_types/${course_type_id}/course_type_units.json`
     const fetch_units = await fetch(url)
     const response = await fetch_units.json()
-    // `sale[payments_attributes][${i}][payments_currency_id]`
-    // debugger
     units.insertAdjacentHTML('beforeend',
       `
         <div class="row">

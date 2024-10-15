@@ -41,7 +41,6 @@ class CompaniesController < ApplicationController
         format.json { render :show, status: :created, location: @company }
       else
         set_selectors
-        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
