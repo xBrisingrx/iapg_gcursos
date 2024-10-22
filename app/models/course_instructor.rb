@@ -19,10 +19,6 @@ class CourseInstructor < ApplicationRecord
         hour: turn_hour
       )
       turn_hour += unit_shift_data.shift_time.minutes
-      # en algun momento la hora es la de comienzo del brake, ahi salteamos y pasamos derecho a cuanto retoman los turnos
-      if turn_hour == unit_shift_data.start_brake
-        turn_hour = unit_shift_data.end_brake
-      end
     end
   end
 end

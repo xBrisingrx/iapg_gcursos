@@ -9,6 +9,7 @@ class CourseTypesController < ApplicationController
 
   # GET /course_types/1 or /course_types/1.json
   def show
+    @course_type_units = @course_type.course_type_units.order(:day).order(:unit_id).order(:shift)
   end
 
   # GET /course_types/new

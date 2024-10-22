@@ -3,9 +3,7 @@ class CoursePeopleController < ApplicationController
 
   # GET /courses or /courses.json
   def index
-    @query = CoursePerson.where(course_id: params[:course_id]).group(:person_id)
-    @course = Course.find(params[:course_id])
-    @units = @course.course_type.units
+    @query = CoursePerson.where(course_id: params[:course_id]).includes(:person).group(:person_id).order(people: { last_name: :asc })
     @pagy, @course_people = pagy(@query)
   end
 

@@ -74,6 +74,6 @@ class CourseTypeUnitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_type_unit_params
-      params.require(:course_type_unit).permit(:course_type_id, :unit_id, :day, :start_hour, :end_hour, :start_brake, :end_brake, :is_by_turn, :shift_time)
+      params.require(:course_type_unit).permit(:course_type_id, :unit_id, :day, :start_hour, :end_hour, :is_by_turn, :shift_time, :shift)
     end
 end

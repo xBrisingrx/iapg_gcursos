@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CalendarController from "./calendar_controller"
+application.register("calendar", CalendarController)
+
 import Courses__CheckIsCompanyController from "./courses/check_is_company_controller"
 application.register("courses--check-is-company", Courses__CheckIsCompanyController)
 

@@ -1,4 +1,5 @@
 <%= tag.tr id: dom_id(course_person) do %>
   <td><%= course_person.person.fullname %></td>
-  <td><%= course_person.from_hour %></td>
+  <td><%= course_person.person.cuil %></td>
+  <td><%= course_person.company.name %></td>
 <% end %>

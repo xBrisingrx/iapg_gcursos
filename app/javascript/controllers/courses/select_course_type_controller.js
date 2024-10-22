@@ -52,10 +52,19 @@ export default class extends Controller {
     units.insertAdjacentHTML('beforeend',
       `
         <div class="row">
-          <div class="col-4">
+          <div class="col-2">
             <h3>Módulo</h3>
           </div>
-          <div class="col-4">
+          <div class="col-1">
+            <h3>Turno</h3>
+          </div>
+          <div class="col-2">
+            <h3>Cupos</h3>
+          </div>
+          <div class="col-2">
+            <h3>Horario</h3>
+          </div>
+          <div class="col-2">
             <h3>Instructor</h3>
           </div>
         </div>
@@ -65,11 +74,21 @@ export default class extends Controller {
       units.insertAdjacentHTML('beforeend',
         `
           <div class="form-group row mb-3">
-            <div class="col-4">
+            <div class="col-2">
               <label for=""> Día ${inputs.day}: ${inputs.unit} </label>
               <input type="hidden" value=${inputs.unit_id} name="course[course_instructors_attributes][${instructor_unit}][unit_id]">
             </div>
-            <div class="col-4">
+            <div class="col-2">
+              <label for=""> Día ${inputs.unit_id} </label>
+            </div>
+            <div class="col-1">
+              <input type="number" disabled class="form-control" />
+            </div>
+            <div class="col-2">
+              <input type="time" class="form-control" value="${inputs.start_hour}" />
+              <input type="time" class="form-control" value="${inputs.end_hour}" />
+            </div>
+            <div class="col-2">
               <select id="course_instructor_${instructor_unit}" name="course[course_instructors_attributes][${instructor_unit}][instructor_id]" class="form-control tselect">
                 <option value="">Seleccione instructor</option>
                 ${this.select_option_instructors()}

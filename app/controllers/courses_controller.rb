@@ -74,6 +74,10 @@ class CoursesController < ApplicationController
     @pagy, @course_people = pagy(@query)
   end
 
+  def calendar_format
+    @courses = Course.actives
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course

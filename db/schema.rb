@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_15_143451) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_22_132454) do
   create_table "calendar_courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "course_id", null: false
@@ -128,12 +128,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_143451) do
     t.integer "day"
     t.time "start_hour"
     t.time "end_hour"
-    t.time "start_brake"
-    t.time "end_brake"
     t.boolean "is_by_turn"
     t.integer "shift_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "shift"
     t.index ["course_type_id"], name: "index_course_type_units_on_course_type_id"
     t.index ["unit_id"], name: "index_course_type_units_on_unit_id"
   end
