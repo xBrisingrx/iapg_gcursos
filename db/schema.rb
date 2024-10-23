@@ -220,9 +220,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_132454) do
   end
 
   create_table "inscription_motives", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.string "description"
-    t.boolean "active", default: true
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

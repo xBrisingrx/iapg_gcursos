@@ -26,7 +26,9 @@ Rails.application.routes.draw do
     get "modal_disable", on: :member
     put "disable", on: :member
     get "get_yearly_and_general_number", on: :member
-    resources :course_type_units
+    resources :course_type_units do
+      get "add_units_to_form", on: :collection
+    end
   end
   resources :sectionals, except: [ :destroy ] do
     get "modal_disable", on: :member

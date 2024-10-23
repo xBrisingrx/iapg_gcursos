@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-2">
+    <h3>Módulo</h3>
+  </div>
+  <div class="col-1">
+    <h3>Turno</h3>
+  </div>
+  <div class="col-1">
+    <h3>Cupos</h3>
+  </div>
+  <div class="col-2">
+    <h3>Horario</h3>
+  </div>
+  <div class="col-2">
+    <h3>Instructor</h3>
+  </div>
+</div>
+<% course_type_units.each_with_index do |course_type_unit, index| %>
+  <div class="form-group row mb-3">
+    <div class="col-2">
+      <label for=""> Día <%= "#{course_type_unit.day}: #{course_type_unit.unit.name}" %> </label>
+      <input type="hidden" value=<%= course_type_unit.unit_id %> name="course[course_instructors_attributes][<%= index %>][unit_id]">
+    </div>
+    <div class="col-1">
+      <label for=""> <%= course_type_unit.shift %> </label>
+    </div>
+    <div class="col-1">
+      <input type="number" disabled class="form-control" value=<%= course_type_unit.calc_quota %> />
+    </div>
+    <div class="col-2 row">
+      <div class='col-6'>
+        <input type="time" class="form-control" value="<%= course_type_unit.start_hour.strftime("%H:%M") %>" />
+      </div>
+      <div class='col-6'>
+        <input type="time" class="form-control" value="<%= course_type_unit.end_hour.strftime("%H:%M") %>" />
+      </div>
+    </div>
+    <div class="col-2">
+      <%= select(:course, :instructor_id, Instructor.all.collect { |p| [ p.name, p.id ] }, 
+        { include_blank: "Seleccione instructor" },
+        data: {controller: "tselect"}) 
+      %>
+    </div>
+  </div>
+<% end %>

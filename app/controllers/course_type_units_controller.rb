@@ -66,6 +66,12 @@ class CourseTypeUnitsController < ApplicationController
     end
   end
 
+  def add_units_to_form
+    course_type = CourseType.find(params[:course_type_id])
+    course_type_units = course_type.course_type_units
+    render turbo_stream: turbo_stream.replace("units", partial: "add_units_to_form", locals: { course_type_units: course_type_units })
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course_type_unit
