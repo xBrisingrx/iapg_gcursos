@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="col-2">
-      <%= select(:course, :instructor_id, Instructor.all.collect { |p| [ p.name, p.id ] }, 
+      <%= select(:course, :instructor_, Instructor.all.collect { |p| [ p.name, p.id ] }, 
         { include_blank: "Seleccione instructor" },
         data: {controller: "tselect"}) 
       %>

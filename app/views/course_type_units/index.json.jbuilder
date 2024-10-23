@@ -6,5 +6,6 @@ json.data @course_type_units do |course_type_unit|
   json.start_hour course_type_unit.start_hour.strftime("%H:%M")
   json.end_hour course_type_unit.end_hour.strftime("%H:%M")
   json.shift course_type_unit.shift
+  json.shift_time course_type_unit.shift_time
   json.calc_quota course_type_unit.calc_quota
 end

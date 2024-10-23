@@ -31,6 +31,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to courses_path, notice: "Curso registrado." }
         format.json { render :show, status: :created, location: @course }
       else
+        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -88,6 +89,6 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:from_date, :year_number, :general_number, :is_company, :course_type_id,
         :room_id, :company_id, :active,
-        course_instructors_attributes: [ :id, :instructor_id, :unit_id ])
+        course_instructors_attributes: [ :id, :instructor_id, :unit_id, :start_hour, :end_hour ])
     end
 end
