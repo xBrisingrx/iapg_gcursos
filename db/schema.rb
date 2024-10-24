@@ -114,10 +114,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_225318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.time "to_hour"
-    t.bigint "course_type_unit_id", null: false
+    t.bigint "course_unit_id", null: false
     t.index ["company_id"], name: "index_course_people_on_company_id"
     t.index ["course_id"], name: "index_course_people_on_course_id"
-    t.index ["course_type_unit_id"], name: "index_course_people_on_course_type_unit_id"
+    t.index ["course_unit_id"], name: "index_course_people_on_course_unit_id"
     t.index ["fleet_category_id"], name: "index_course_people_on_fleet_category_id"
     t.index ["inscription_motive_id"], name: "index_course_people_on_inscription_motive_id"
     t.index ["manager_id"], name: "index_course_people_on_manager_id"
@@ -227,9 +227,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_225318) do
   end
 
   create_table "inscription_motives", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "description"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -369,7 +369,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_225318) do
   add_foreign_key "course_instructors", "units"
   add_foreign_key "course_people", "companies"
   add_foreign_key "course_people", "companies", column: "operator_id"
-  add_foreign_key "course_people", "course_type_units"
+  add_foreign_key "course_people", "course_units"
   add_foreign_key "course_people", "courses"
   add_foreign_key "course_people", "fleet_categories"
   add_foreign_key "course_people", "inscription_motives"

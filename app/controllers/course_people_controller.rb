@@ -25,12 +25,12 @@ class CoursePeopleController < ApplicationController
     @course = Course.find(params[:course_id])
     @course_person = @course.course_people.new(course_person_params)
     course_type_unit = CourseTypeUnit.where(course_type_id: @course.course_type_id).order(:day).first
+    # course_unit = CourseUnit.where(course_id: @course.id, unit_id: course_type_unit.unit_id).order(:day).first
     @course_person.unit_id = course_type_unit.unit_id
-    @course_person.course_type_unit = course_type_unit
+    # @course_person.course_unit = course_unit
     @course_person.date = @course.from_date
     respond_to do |format|
-      if @course_person.save
-        @course_person.assign_turn
+      if @course_person.assign_turn
         format.turbo_stream {
           render turbo_stream: [
               turbo_stream.replace("toasts",
