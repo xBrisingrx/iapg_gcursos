@@ -7,12 +7,14 @@ class CoursePerson < ApplicationRecord
   belongs_to :inscription_motive
   belongs_to :fleet_category
   belongs_to :unit
+  belongs_to :course_type_unit
 
   def assign_turn
     # return if self.course.course_type.days == 1 || CoursePerson.where(course_id: self.course_id, person_id: self.person_id).count > 1
     units = CourseTypeUnit.where(course_type_id: self.course.course_type_id).where.not(unit_id: self.unit_id)
     course_date = self.course.from_date
     units.each do |unit|
+      next if CoursePerson.find_by(course_id: self.course_id, person_id: self.person_id, unit_id: unit.unit_id)
       course_person = CoursePerson.new(
         course_id: self.course_id,
         person_id: self.person_id,
@@ -56,7 +58,7 @@ class CoursePerson < ApplicationRecord
           .where(date: date)
     cp_from_hour = cp.where(from_hour: hour)
     cp_to_hour = cp.where(to_hour: end_hour)
-    debugger
+    # debugger
     cp_from_hour.empty? && cp_to_hour.empty?
   end
 end

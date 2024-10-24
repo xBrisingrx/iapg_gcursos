@@ -71,7 +71,7 @@ class CoursesController < ApplicationController
   end
 
   def turns_by_unit
-    @query = @course.course_people.where(unit_id: params[:unit_id]).order(:from_hour)
+    @query = @course.course_people.where(course_type_unit_id: params[:unit_id]).order(:from_hour)
     @pagy, @course_people = pagy(@query)
   end
 
@@ -89,6 +89,6 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:from_date, :year_number, :general_number, :is_company, :course_type_id,
         :room_id, :company_id, :active,
-        course_instructors_attributes: [ :id, :instructor_id, :unit_id, :start_hour, :end_hour ])
+        course_units_attributes: [ :id, :instructor_id, :unit_id, :start_hour, :end_hour, :shift, :day ])
     end
 end

@@ -78,7 +78,9 @@ export default class extends Controller {
           <div class="form-group row mb-3">
             <div class="col-2">
               <label for=""> Día ${inputs.day}: ${inputs.unit} </label>
-              <input type="hidden" value=${inputs.unit_id} name="course[course_instructors_attributes][${instructor_unit}][unit_id]">
+              <input type="hidden" value=${inputs.unit_id} name="course[course_units_attributes][${instructor_unit}][unit_id]">
+              <input type="hidden" value=${inputs.day} name="course[course_units_attributes][${instructor_unit}][day]">
+              <input type="hidden" value=${inputs.shift} name="course[course_units_attributes][${instructor_unit}][shift]">
             </div>
             <div class="col-1">
               <label for=""> ${inputs.shift} </label>
@@ -91,7 +93,7 @@ export default class extends Controller {
                 <input type="time" class="form-control" 
                   value="${inputs.start_hour}"
                   id="course_instructor_start_hour_${instructor_unit}"
-                  name="course[course_instructors_attributes][${instructor_unit}][start_hour]"
+                  name="course[course_units_attributes][${instructor_unit}][start_hour]"
                   data-controller="courses--select-course-type"
                   data-courses--select-course-type-target="startHour"
                   data-action="change->courses--select-course-type#calc_quota"
@@ -102,7 +104,7 @@ export default class extends Controller {
                 <input type="time" class="form-control" 
                   value="${inputs.end_hour}"
                   id="course_instructor_end_hour_${instructor_unit}"
-                  name="course[course_instructors_attributes][${instructor_unit}][end_hour]"
+                  name="course[course_units_attributes][${instructor_unit}][end_hour]"
                   data-controller="courses--select-course-type"
                   data-action="change->courses--select-course-type#calc_quota"
                   data-shift-time="${inputs.shift_time}"
@@ -110,7 +112,7 @@ export default class extends Controller {
               </div>
             </div>
             <div class="col-2">
-              <select id="course_instructor_${instructor_unit}" name="course[course_instructors_attributes][${instructor_unit}][instructor_id]" class="form-control">
+              <select id="course_instructor_${instructor_unit}" name="course[course_units_attributes][${instructor_unit}][instructor_id]" class="form-control">
                 <option value="">Seleccione instructor</option>
                 ${this.select_option_instructors()}
               </select>

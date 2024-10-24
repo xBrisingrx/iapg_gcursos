@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_23_140002) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_225318) do
   create_table "calendar_courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "course_id", null: false
@@ -114,8 +114,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_140002) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.time "to_hour"
+    t.bigint "course_type_unit_id", null: false
     t.index ["company_id"], name: "index_course_people_on_company_id"
     t.index ["course_id"], name: "index_course_people_on_course_id"
+    t.index ["course_type_unit_id"], name: "index_course_people_on_course_type_unit_id"
     t.index ["fleet_category_id"], name: "index_course_people_on_fleet_category_id"
     t.index ["inscription_motive_id"], name: "index_course_people_on_inscription_motive_id"
     t.index ["manager_id"], name: "index_course_people_on_manager_id"
@@ -174,6 +176,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_140002) do
     t.integer "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "start_hour"
+    t.time "end_hour"
+    t.date "date"
     t.index ["course_id"], name: "index_course_units_on_course_id"
     t.index ["instructor_id"], name: "index_course_units_on_instructor_id"
     t.index ["unit_id"], name: "index_course_units_on_unit_id"
@@ -222,9 +227,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_140002) do
   end
 
   create_table "inscription_motives", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.string "description"
-    t.boolean "active", default: true
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -364,6 +369,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_140002) do
   add_foreign_key "course_instructors", "units"
   add_foreign_key "course_people", "companies"
   add_foreign_key "course_people", "companies", column: "operator_id"
+  add_foreign_key "course_people", "course_type_units"
   add_foreign_key "course_people", "courses"
   add_foreign_key "course_people", "fleet_categories"
   add_foreign_key "course_people", "inscription_motives"
