@@ -14,23 +14,9 @@
   </div>
 
   <div class="form-group row mb-2">
-    <%= form.label :day, "Día" %>
+    <%= form.label :instructor_id, "Instructor" %>
     <div class="col-6">
-      <%= form.select :day, course.cant_days.each { |day| [ "#{day}", day ] },
-        {:include_blank => "Seleccione día"},
-        data: {controller: 'tselect',
-          tselect_ids_value: @day
-        },
-        required: true
-      %>
-    </div>
-    <%= inline_error_for(:day, course_unit, "offset-3") %>
-  </div>
-
-  <div class="form-group row mb-2">
-    <%= form.label :unit_id, "Instructor" %>
-    <div class="col-6">
-      <%= form.select :unit_id, Instructor.actives.collect { |unit| [ "#{unit.name}", unit.id ] },
+      <%= form.select :instructor_id, Instructor.actives.collect { |unit| [ "#{unit.name}", unit.id ] },
         {:include_blank => "Seleccione instructor"},
         data: {controller: 'tselect',
           tselect_ids_value: @instructor_id
@@ -38,7 +24,7 @@
         required: true
       %>
     </div>
-    <%= inline_error_for(:unit_id, course_unit, "offset-3") %>
+    <%= inline_error_for(:instructor_id, course_unit, "offset-3") %>
   </div>
 
   <div class="form-group row mb-2">
@@ -62,7 +48,7 @@
   <div class="form-group row mb-2">
     <%= form.label :end_hour, "Hora fin" %>
     <%= form.time_field :end_hour %>
-    <%= inline_error_for(:unit_id, course_unit, "offset-3") %>
+    <%= inline_error_for(:end_hour, course_unit, "offset-3") %>
   </div>
 
   <div class='mt-2'>
