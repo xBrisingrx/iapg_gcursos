@@ -71,7 +71,7 @@ class CoursesController < ApplicationController
   end
 
   def turns_by_unit
-    @query = @course.course_people.where(course_type_unit_id: params[:unit_id]).order(:from_hour)
+    @query = @course.course_people.where(course_unit_id: params[:course_unit_id]).order(:from_hour)
     @pagy, @course_people = pagy(@query)
   end
 

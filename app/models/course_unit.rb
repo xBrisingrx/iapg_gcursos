@@ -8,6 +8,19 @@ class CourseUnit < ApplicationRecord
   before_create :set_date
   after_create :generate_turns
 
+
+  def schedule
+    "De #{self.start_hour&.strftime("%k:%M")} a #{self.end_hour&.strftime("%k:%M")}"
+  end
+
+  def is_by_turn
+    CourseTypeUnit.find_by(course_type: self.course.course_type, unit: self.unit).is_by_turn
+  end
+
+  def shift_time
+    CourseTypeUnit.find_by(course_type: self.course.course_type, unit: self.unit).shift_time
+  end
+
   private
 
   def set_date

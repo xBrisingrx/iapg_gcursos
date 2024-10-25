@@ -11,7 +11,7 @@
 </div>
 <h2>Módulos</h2>
 <% day = @course.course_type.course_type_units.first&.day %>
-<% @course.course_type.course_type_units.order(:day).each do |unit| %>
+<% @course.course_units.order(:day).each do |unit| %>
   <% if day != unit.day || @course.course_type.course_type_units.first.id == unit.id %>
     <h3>Día <%= unit.day %></h3>
     <% day = unit.day %>
@@ -29,7 +29,7 @@
       <% if unit.is_by_turn %>
         <label class="form-label">Turnos</label>
         <p>Turnos de <%= unit.shift_time %> minutos.
-          <%= link_to turns_by_unit_course_path(course_id: @course.id, unit_id: unit.id), 
+          <%= link_to turns_by_unit_course_path(course_unit_id: unit.id), 
             class: "btn btn-info btn-sm btn-icon text-white",title: 'Ver personas registradas', data: { turbo_frame: "modal"} do %>
             <i class="bi bi-people"></i>
           <% end %>

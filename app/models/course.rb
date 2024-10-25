@@ -34,6 +34,10 @@ class Course < ApplicationRecord
     [ "room", "company", "course_type" ]
   end
 
+  def cant_days
+    self.course_type.course_type_units.select(:day).distinct.count
+  end
+
   private
   def instructor_available
     # tengo que buscar los cursos de cierta fecha y ahi ver que no este mi instructor en ese curso
