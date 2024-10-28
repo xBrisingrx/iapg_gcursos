@@ -9,6 +9,7 @@ class CourseUnitsController < ApplicationController
     course_unit = course.course_units.new(course_unit_params)
     day = course.course_type.course_type_units.find_by(unit_id: course_unit.unit_id, shift: course_unit.shift ).day
     course_unit.day = day
+    course_unit.n_list = 2
 
     respond_to do |format|
       if course_unit.save

@@ -81,6 +81,7 @@ export default class extends Controller {
               <input type="hidden" value=${inputs.unit_id} name="course[course_units_attributes][${instructor_unit}][unit_id]">
               <input type="hidden" value=${inputs.day} name="course[course_units_attributes][${instructor_unit}][day]">
               <input type="hidden" value=${inputs.shift} name="course[course_units_attributes][${instructor_unit}][shift]">
+              <input type="hidden" value=1 name="course[course_units_attributes][${instructor_unit}][n_list]">
             </div>
             <div class="col-1">
               <label for=""> ${inputs.shift} </label>

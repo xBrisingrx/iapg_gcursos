@@ -1,0 +1,48 @@
+<%= render 'shared/modal', title: "Turnos", fade_in: true do %>
+  <!-- Nav -->
+  <div class="text-center">
+    <ul class="nav nav-segment nav-pills mb-7" role="tablist">
+      <% @days.times do |i| %>
+        <li class="nav-item">
+          <a class="nav-link" 
+              id="nav-<%= i+1 %>-tab" 
+              href="#nav-<%= i+1 %>" 
+              data-bs-toggle="pill" 
+              data-bs-target="#nav-<%= i+1 %>" 
+              role="tab" aria-controls="nav-<%= i+1 %>" 
+              aria-selected="true">Dia <%= i+1 %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <!-- End Nav -->
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <% @days.times do |i| %>
+      <div class="tab-pane fade show" id="nav-<%= i+1 %>" role="tabpanel" aria-labelledby="nav-<%= i+1 %>-tab">
+        <div class="row">
+          <% @course_units.where(day: i+1) do |couse_unit| %>
+            <% course_unit do | unit |%>
+              <div class="col-4">
+                <table class="table">
+                  <thead>
+                    <th> Hora </th>
+                    <th> Persona </th>
+                  </thead>
+                  <tbody>
+                    <% Turn.where(course_id: unit.course_id, unit_id: unit.unit_id) do %>
+
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <!-- End Tab Content -->
+<% end %>

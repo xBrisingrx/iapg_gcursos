@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_24_184956) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_28_145129) do
   create_table "calendar_courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "course_id", null: false
@@ -180,6 +180,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_184956) do
     t.time "end_hour"
     t.date "date"
     t.integer "shift_time"
+    t.integer "n_list"
     t.index ["course_id"], name: "index_course_units_on_course_id"
     t.index ["instructor_id"], name: "index_course_units_on_instructor_id"
     t.index ["unit_id"], name: "index_course_units_on_unit_id"
@@ -339,7 +340,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_184956) do
     t.boolean "available", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "n_list"
+    t.bigint "course_unit_id", null: false
     t.index ["course_id"], name: "index_turns_on_course_id"
+    t.index ["course_unit_id"], name: "index_turns_on_course_unit_id"
     t.index ["person_id"], name: "index_turns_on_person_id"
     t.index ["unit_id"], name: "index_turns_on_unit_id"
   end
@@ -396,6 +400,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_184956) do
   add_foreign_key "rooms", "headquarters"
   add_foreign_key "sectionals", "cities"
   add_foreign_key "sectionals", "provinces"
+  add_foreign_key "turns", "course_units"
   add_foreign_key "turns", "courses"
   add_foreign_key "turns", "people"
   add_foreign_key "turns", "units"
