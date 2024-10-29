@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     get "calendar_format", on: :collection
     get "turns", on: :member
     resources :course_people, only: [ :index, :new, :create ]
-    resources :course_units, only: [ :new, :create ] 
-    resources :turns, only: [ :index ]
+    resources :course_units, only: [ :new, :create ]
+    resources :turns, only: [ :index, :edit, :update ]
   end
   resources :units, except: [ :destroy ] do
     get "modal_disable", on: :member

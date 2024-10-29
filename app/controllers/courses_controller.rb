@@ -74,6 +74,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @days = @course.cant_days
     @turns = @course.turns
+    @units = @course.units.group(:name).pluck(:id, :name)
     @course_units = @course.course_units
   end
 
@@ -96,6 +97,6 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:from_date, :year_number, :general_number, :is_company, :course_type_id,
         :room_id, :company_id, :active,
-        course_units_attributes: [ :id, :instructor_id, :unit_id, :start_hour, :end_hour, :shift, :day, :n_list ])
+        course_units_attributes: [ :id, :instructor_id, :unit_id, :start_hour, :end_hour, :shift, :shift_time, :day, :n_list ])
     end
 end

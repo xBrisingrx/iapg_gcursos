@@ -1,4 +1,4 @@
-<%= render 'shared/modal', title: "Dar de baja instructor", fade_in: true do %>
+<%= render "shared/modal", title: "Dar de baja instructor", fade_in: true do %>
   <p>Se va a dar de baja al instructor <b><%= @instructor.name %></b></p>
   <%= form_with(url: disable_instructor_path(@instructor), method: 'PUT') do |form| %>
       <%= form.submit 'Dar de baja', class: 'btn btn-danger' %>

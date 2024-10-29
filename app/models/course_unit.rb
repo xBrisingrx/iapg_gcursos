@@ -4,10 +4,10 @@ class CourseUnit < ApplicationRecord
   belongs_to :course
   belongs_to :unit
   belongs_to :instructor
+  has_many :turns
 
   before_create :set_date
   after_create :generate_turns
-
 
   def schedule
     "De #{self.start_hour&.strftime("%k:%M")} a #{self.end_hour&.strftime("%k:%M")}"
@@ -19,6 +19,11 @@ class CourseUnit < ApplicationRecord
 
   def shift_time
     CourseTypeUnit.find_by(course_type: self.course.course_type, unit: self.unit).shift_time
+  end
+
+  def lists
+    lists = Course.find(self.course_id).course_units.where(unit_id: self.unit_id).select(:n_list).distinct.count
+    lists
   end
 
   private
@@ -33,11 +38,12 @@ class CourseUnit < ApplicationRecord
     turn_hour = self.start_hour
     date = self.date
     while turn_hour < self.end_hour
-      Turn.create(
+      self.turns.create(
         course_id: self.course_id,
         unit_id: self.unit_id,
         date: date,
-        hour: turn_hour
+        hour: turn_hour,
+        n_list: self.n_list
       )
       turn_hour += course_type_unit.shift_time.minutes
     end

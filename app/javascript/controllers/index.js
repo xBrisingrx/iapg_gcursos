@@ -16,6 +16,12 @@ application.register("courses--select-company", Courses__SelectCompanyController
 import Courses__SelectCourseTypeController from "./courses/select_course_type_controller"
 application.register("courses--select-course-type", Courses__SelectCourseTypeController)
 
+import Courses__TurnFormController from "./courses/turn_form_controller"
+application.register("courses--turn-form", Courses__TurnFormController)
+
+import Courses__TurnModalController from "./courses/turn_modal_controller"
+application.register("courses--turn-modal", Courses__TurnModalController)
+
 import FilterController from "./filter_controller"
 application.register("filter", FilterController)
 

@@ -1,4 +1,4 @@
-<%= render 'shared/modal', title: "Dar de baja seccional", fade_in: true do %>
+<%= render "shared/modal", title: "Dar de baja seccional", fade_in: true do %>
   <p>Se va a dar de baja la seccional <b><%= @sectional.name %></b></p>
   <%= form_with(url: disable_sectional_path(@sectional), method: 'PUT') do |form| %>
       <%= form.submit 'Dar de baja', class: 'btn btn-danger' %>
