@@ -3,7 +3,7 @@ class CourseTypeUnitsController < ApplicationController
 
   # GET /course_type_units or /course_type_units.json
   def index
-    @course_type_units = CourseTypeUnit.all
+    @course_type_units = CourseTypeUnit.where(course_type_id:params[:course_type_id])
   end
 
   # GET /course_type_units/1 or /course_type_units/1.json

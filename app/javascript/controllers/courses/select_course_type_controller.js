@@ -112,11 +112,20 @@ export default class extends Controller {
                   data-index="${instructor_unit}" />
               </div>
             </div>
-            <div class="col-2">
-              <select id="course_instructor_${instructor_unit}" name="course[course_units_attributes][${instructor_unit}][instructor_id]" class="form-control">
-                <option value="">Seleccione instructor</option>
-                ${this.select_option_instructors()}
-              </select>
+            <div class="col-2 row">
+              <div class="col-10">
+                <select id="course_instructor_${instructor_unit}" name="course[course_units_attributes][${instructor_unit}][instructor_id]" class="form-control">
+                  <option value="">Seleccione instructor</option>
+                  ${this.select_option_instructors()}
+                </select>
+              </div>
+              <div class="col-2">
+                <button type="button" 
+                  title="Qutar módulo"
+                  data-controller="courses--select-course-type" 
+                  data-action="courses--select-course-type#remove_unit" class="btn btn-danger btn-sm"> X 
+                </button>
+              </div>
             </div>
           </div>
         `
@@ -175,5 +184,9 @@ export default class extends Controller {
         .reduce((p, c) => parseInt(p) * 60 + parseInt(c));
       quota.value = Math.round((minutos_final - minutos_inicio) / shift_time)
     }, 1000) 
+  }
+
+  remove_unit(event) {
+    event.target.parentElement.parentElement.parentElement.remove()
   }
 }

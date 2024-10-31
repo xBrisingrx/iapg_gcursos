@@ -3,8 +3,8 @@ json.data @course_type_units do |course_type_unit|
   json.day course_type_unit.day
   json.unit course_type_unit.unit.name
   json.unit_id course_type_unit.unit_id
-  json.start_hour course_type_unit.start_hour.strftime("%H:%M")
-  json.end_hour course_type_unit.end_hour.strftime("%H:%M")
+  json.start_hour course_type_unit.start_hour&.strftime("%H:%M")
+  json.end_hour course_type_unit.end_hour&.strftime("%H:%M")
   json.shift course_type_unit.shift
   json.shift_time course_type_unit.shift_time
   json.calc_quota course_type_unit.calc_quota
