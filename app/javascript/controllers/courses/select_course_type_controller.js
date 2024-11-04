@@ -2,8 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 import TomSelect from "tom-select"
 
 let room_select
-let instructor_unit = 0
-let instructors
 
 // Connects to data-controller="courses--select-course-type"
 export default class extends Controller {
@@ -17,11 +15,6 @@ export default class extends Controller {
         }
       }
     } )
-    fetch('/instructors.json')
-      .then(response => response.json())
-      .then(data => {
-        instructors = data
-      })
   }
   
   select_default_room() {
@@ -42,126 +35,21 @@ export default class extends Controller {
       })
   }
 
-  async add_units_to_form() {
-    const units = document.getElementById('units')
-    units.innerHTML  =  ''
+  add_units_to_form() {
     const course_type_id = this.selectCourseTypeTarget.value
-    const url = `/course_types/${course_type_id}/course_type_units.json`
-    // const url = `/course_types/${course_type_id}/course_type_units/add_units_to_form`
-    const fetch_units = await fetch(url)
-    const response = await fetch_units.json()
-    units.insertAdjacentHTML('beforeend',
-      `
-        <div class="row">
-          <div class="col-2">
-            <h3>Módulo</h3>
-          </div>
-          <div class="col-1">
-            <h3>Turno</h3>
-          </div>
-          <div class="col-1">
-            <h3>Cupos</h3>
-          </div>
-          <div class="col-2">
-            <h3>Horario</h3>
-          </div>
-          <div class="col-2">
-            <h3>Instructor</h3>
-          </div>
-        </div>
-      `
-    )
-
-    response.data.map( ( inputs ) => {
-      units.insertAdjacentHTML('beforeend',
-        `
-          <div class="form-group row mb-3">
-            <div class="col-2">
-              <label for=""> Día ${inputs.day}: ${inputs.unit} </label>
-              <input type="hidden" value=${inputs.unit_id} name="course[course_units_attributes][${instructor_unit}][unit_id]">
-              <input type="hidden" value=${inputs.day} name="course[course_units_attributes][${instructor_unit}][day]">
-              <input type="hidden" value=${inputs.shift} name="course[course_units_attributes][${instructor_unit}][shift]">
-              <input type="hidden" value=${inputs.shift_time} name="course[course_units_attributes][${instructor_unit}][shift_time]">
-            </div>
-            <div class="col-1">
-              <label for=""> ${inputs.shift} </label>
-            </div>
-            <div class="col-1">
-              <input type="number" disabled class="form-control" id="calc_quota" value=${inputs.calc_quota} />
-            </div>
-            <div class="col-2 row">
-              <div class='col-6'>
-                <input type="time" class="form-control" 
-                  value="${inputs.start_hour}"
-                  id="course_instructor_start_hour_${instructor_unit}"
-                  name="course[course_units_attributes][${instructor_unit}][start_hour]"
-                  data-controller="courses--select-course-type"
-                  data-courses--select-course-type-target="startHour"
-                  data-action="change->courses--select-course-type#calc_quota"
-                  data-shift-time="${inputs.shift_time}"
-                  data-index="${instructor_unit}" />
-              </div>
-              <div class='col-6'>
-                <input type="time" class="form-control" 
-                  value="${inputs.end_hour}"
-                  id="course_instructor_end_hour_${instructor_unit}"
-                  name="course[course_units_attributes][${instructor_unit}][end_hour]"
-                  data-controller="courses--select-course-type"
-                  data-action="change->courses--select-course-type#calc_quota"
-                  data-shift-time="${inputs.shift_time}"
-                  data-index="${instructor_unit}" />
-              </div>
-            </div>
-            <div class="col-2 row">
-              <div class="col-10">
-                <select id="course_instructor_${instructor_unit}" name="course[course_units_attributes][${instructor_unit}][instructor_id]" class="form-control">
-                  <option value="">Seleccione instructor</option>
-                  ${this.select_option_instructors()}
-                </select>
-              </div>
-              <div class="col-2">
-                <button type="button" 
-                  title="Qutar módulo"
-                  data-controller="courses--select-course-type" 
-                  data-action="courses--select-course-type#remove_unit" class="btn btn-danger btn-sm"> X 
-                </button>
-              </div>
-            </div>
-          </div>
-        `
-      )
-      new TomSelect( document.getElementById(`course_instructor_${instructor_unit}`), {
-        render: {
-          no_results:function(data,escape){
-            return '<div class="no-results">No hay resultados para "'+escape(data.input)+'"</div>';
-          }
-        }
-      } )
-      instructor_unit++
-    } )
-
-    // this.fetchAndUpdate(url)
-  }
-
-  select_option_instructors() {
-    let options = ''
-    instructors.map( instructor => options+=`<option value=${instructor.id}>${instructor.name}</option>` )
-    return options
+    const url = `/course_types/${course_type_id}/course_type_units/add_units_to_form`
+    this.fetchAndUpdate(url)
   }
 
   fetchAndUpdate(url) {
     fetch(url, {
-      method: 'GET',
       headers: {
-        Accept: 'text/vnd.turbo-stream.html, text/html, application/xhtml+xml',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': this.getMetaContent('csrf-token'),
-        'Cache-Control': 'no-cache',
+        Accept: "text/vnd.turbo-stream.html",
       },
     })
-      .then(response => response.ok ? response.text() : Promise.reject('Response not OK'))
+      .then(response => response.text() )
       .then(html => Turbo.renderStreamMessage(html))
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error:', error))
   }
 
   getMetaContent(name) {
@@ -170,7 +58,6 @@ export default class extends Controller {
 
   calc_quota(event){
     setTimeout(() => {
-      console.log(event.target.value)
       const row = event.target.parentElement.parentElement.parentElement
       const shift_time = event.target.dataset.shiftTime
       const row_index = event.target.dataset.index

@@ -3,7 +3,7 @@ class CourseTypeUnitsController < ApplicationController
 
   # GET /course_type_units or /course_type_units.json
   def index
-    @course_type_units = CourseTypeUnit.where(course_type_id:params[:course_type_id])
+    @course_type_units = CourseTypeUnit.where(course_type_id: params[:course_type_id])
   end
 
   # GET /course_type_units/1 or /course_type_units/1.json
@@ -69,7 +69,8 @@ class CourseTypeUnitsController < ApplicationController
   def add_units_to_form
     course_type = CourseType.find(params[:course_type_id])
     course_type_units = course_type.course_type_units
-    render turbo_stream: turbo_stream.replace("units", partial: "add_units_to_form", locals: { course_type_units: course_type_units })
+    instructors = Instructor.actives
+    render turbo_stream: turbo_stream.replace("units", partial: "add_units_to_form", locals: { course_type_units: course_type_units, instructors: instructors })
   end
 
   private
