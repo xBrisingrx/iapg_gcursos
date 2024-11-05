@@ -8,6 +8,9 @@ class CoursePerson < ApplicationRecord
   belongs_to :fleet_category
   belongs_to :unit
   belongs_to :course_unit
+  has_one :turn
+
+  # attr_accessor :practical_turn_id, :psicometrico_turn_id
 
   def assign_turn
     # metodo mal hecho porq lo llamamos de una instancia que no guardamos nunca

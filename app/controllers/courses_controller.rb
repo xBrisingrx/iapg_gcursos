@@ -31,7 +31,6 @@ class CoursesController < ApplicationController
         format.html { redirect_to courses_path, notice: "Curso registrado." }
         format.json { render :show, status: :created, location: @course }
       else
-        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end

@@ -95,7 +95,9 @@ class CoursePeopleController < ApplicationController
         :company_id,
         :operator_id,
         :inscription_motive_id,
-        :fleet_category_id
+        :fleet_category_id,
+        # :practical_turn_id,
+        # :psicometrico_turn_id
       )
     end
 
@@ -104,5 +106,6 @@ class CoursePeopleController < ApplicationController
       @course_person = CoursePerson.new
       poeple_ids = @course.people.pluck(:id)
       @people = Person.actives.where.not(id: poeple_ids)
+      @units = @course.course_type.course_type_units.where(is_by_turn: true).group(:unit_id)
     end
 end
