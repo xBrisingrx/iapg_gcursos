@@ -37,8 +37,11 @@ export default class extends Controller {
 
   add_units_to_form() {
     const course_type_id = this.selectCourseTypeTarget.value
-    const url = `/course_types/${course_type_id}/course_type_units/add_units_to_form`
-    this.fetchAndUpdate(url)
+    // tengo que mirar esto xq al select cuando lo seteo con tomselect dispara el change
+    if(course_type_id != '') {
+      const url = `/course_types/${course_type_id}/course_type_units/add_units_to_form`
+      this.fetchAndUpdate(url)
+    }
   }
 
   fetchAndUpdate(url) {
