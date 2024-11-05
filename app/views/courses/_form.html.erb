@@ -1,4 +1,4 @@
-<%= form_with(model: course, builder: BootstrapBuilder) do |form| %>
+<%= form_with(model: course, builder: BootstrapBuilder, data: {controller: "courses--select-course-type"}) do |form| %>
   <div class="form-group row mb-2">
     <%= form.label :from_date, "Fecha" %>
     <%= form.date_field :from_date %>
@@ -11,7 +11,7 @@
         CourseType.actives.all.collect { |course_type| [ "#{course_type.name}", course_type.id, data: { room: course_type.room_id } ] },
         {:include_blank => "Seleccione tipo de curso"},
         data: {
-          controller: "tselect courses--select-course-type",
+          controller: "tselect",
           courses__select_course_type_target: "selectCourseType",
           action: "courses--select-course-type#select_default_room",
           tselect_ids_value: @course_type_id
@@ -64,10 +64,8 @@
         %>
       </div>
   </div>
-
-  <div id="units">
-  </div>
-
+  <%= turbo_frame_tag :units do %>
+  <% end %>
   <div>
     <%= form.submit "Guardar" %>
     <%= link_to "Volver", courses_path, class: "btn btn-sm btn-danger" %>
