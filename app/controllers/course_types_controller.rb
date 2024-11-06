@@ -108,6 +108,6 @@ class CourseTypesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def course_type_params
       params.require(:course_type).permit(:name, :description, :min_quota, :max_quota, :min_score, :max_score,
-        :passing_score, :number_of_repeat, :room_id, :need_code, :fleet, :active)
+        :passing_score, :number_of_repeat, :room_id, :need_code, :fleet, :active, :category)
     end
 end
