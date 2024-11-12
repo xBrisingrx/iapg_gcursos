@@ -89,11 +89,12 @@ class CoursesController < ApplicationController
   def search
     courses_type_ids = CourseType.where(fleet: params[:fleet].to_sym, category: params[:category]).pluck(:id)
     courses = Course.where(course_type_id: courses_type_ids)
+    units = CourseUnit.where(course_id: courses.pluck(:id)).group(:course_id).group(:unit_id)
     render turbo_stream:
               turbo_stream.replace(
                 "select_courses",
                 partial: "courses/inscriptions/select_courses",
-                locals: { courses: courses })
+                locals: { courses: courses, units: units })
   end
 
   private

@@ -21,16 +21,18 @@
 
   <div class="form-group row mb-3">
     <%= form.label :course_type, "Tipo de curso" %>
-    <select name="course[type]" id="course_type" 
-      data-inscriptions--form-target="selectCourseCategory" 
-      data-action="change->inscriptions--form#get_courses"
-      class="col-12 col-sm-6 form-control form-control-sm">
-      <option value="">Seleccione tipo de curso</option>
-      <option value="light" data-category="inicio">Inicio liviano</option>
-      <option value="heavy" data-category="inicio">Inicio pesado</option>
-      <option value="light" data-category="renovacion">Renovación liviano</option>
-      <option value="heavy" data-category="renovacion">Renovación pesado</option>
-    </select>
+    <div class="col-12 col-sm-6">
+      <select name="course[type]" id="course_type" 
+        data-inscriptions--form-target="selectCourseCategory" 
+        data-action="change->inscriptions--form#get_courses"
+        class="form-control form-control-sm">
+        <option value="">Seleccione tipo de curso</option>
+        <option value="light" data-category="inicio">Inicio liviano</option>
+        <option value="heavy" data-category="inicio">Inicio pesado</option>
+        <option value="light" data-category="renovacion">Renovación liviano</option>
+        <option value="heavy" data-category="renovacion">Renovación pesado</option>
+      </select>
+    </div>
   </div>
 
   <%= turbo_frame_tag :select_courses do %>

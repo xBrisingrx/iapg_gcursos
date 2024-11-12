@@ -42,6 +42,7 @@ export default class extends Controller {
   }
 
   select_course(event) {
-    console.log(event.target)
+    // teniendo mi curso tengo que mostrar las unidades
+    
   }
 }
