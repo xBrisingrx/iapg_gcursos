@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get "turns_by_unit", on: :member
     get "calendar_format", on: :collection
     get "turns", on: :member
+    get "search", on: :collection
     resources :course_people, only: [ :index, :new, :create ]
     resources :course_units, only: [ :new, :create ]
     resources :turns, only: [ :index, :edit, :update ]
@@ -69,6 +70,7 @@ Rails.application.routes.draw do
   resources :people, except: [ :destroy ] do
     get "modal_disable", on: :member
     put "disable", on: :member
+    get "search", on: :collection
   end
   get "main/index"
   get "up" => "rails/health#show", as: :rails_health_check
@@ -79,4 +81,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "people#index"
+
+  namespace :courses do
+    resources :inscriptions, only: [ :new, :create ]
+    # namespace :inscriptions do
+    #   get "light_inscription_course", to: "light#index"
+    # end
+  end
 end

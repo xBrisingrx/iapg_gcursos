@@ -1,0 +1,8 @@
+<div class="form-group row mb-3">
+  <select name="" id="" data-controller="tselect" data-action="change->inscriptions--form#select_course">
+    <option value="">Seleccione curso</option>
+    <% courses.each do |course| %>
+      <option value="<%= course.id %>"><%= course.course_type.name %></option>
+    <% end %>
+  </select>
+</div>

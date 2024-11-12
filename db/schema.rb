@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_28_210523) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_06_194221) do
   create_table "calendar_courses", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "course_id", null: false
@@ -156,6 +156,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_210523) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category", limit: 20
     t.index ["room_id"], name: "index_course_types_on_room_id"
   end
 
@@ -229,9 +230,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_210523) do
   end
 
   create_table "inscription_motives", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.string "description"
-    t.boolean "active", default: true
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

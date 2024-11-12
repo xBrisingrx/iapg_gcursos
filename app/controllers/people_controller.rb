@@ -89,6 +89,11 @@ class PeopleController < ApplicationController
     end
   end
 
+  def search
+    person = Person.select(:id, :name, :last_name).where("cuil LIKE ?", "%#{params[:query]}%").first
+    render json: { person: person }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person

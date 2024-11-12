@@ -28,6 +28,9 @@ application.register("filter", FilterController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import Inscriptions__FormController from "./inscriptions/form_controller"
+application.register("inscriptions--form", Inscriptions__FormController)
+
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 

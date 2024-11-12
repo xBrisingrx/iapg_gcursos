@@ -4,6 +4,10 @@
     <%= link_to "Registrar curso", 
       new_course_path,
       class: "btn btn-sm btn-primary" %>
+    <%= link_to "Inscribir alumno", 
+      new_courses_inscription_path,
+      data: { turbo_frame: "modal"},
+      class: "btn btn-sm btn-info" %>
   </div>
   <div class="col-6">
     <%= search_form_for @query, method: :get, data: { controller: "filter", filter_target: "form", turbo_frame: "table" } do |form| %>

@@ -86,6 +86,16 @@ class CoursesController < ApplicationController
     @courses = Course.actives
   end
 
+  def search
+    courses_type_ids = CourseType.where(fleet: params[:fleet].to_sym, category: params[:category]).pluck(:id)
+    courses = Course.where(course_type_id: courses_type_ids)
+    render turbo_stream:
+              turbo_stream.replace(
+                "select_courses",
+                partial: "courses/inscriptions/select_courses",
+                locals: { courses: courses })
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course

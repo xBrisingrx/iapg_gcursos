@@ -72,6 +72,24 @@
     <%= inline_error_for(:inscription_motive_id, course_person, "offset-3") %>
   </div>
 
+  <%# @units.each do |unit| %>
+    <%# <div class="form-group row mb-2"> %>
+      <%# input_id = ( unit.unit.category == "Práctico" ? :practical_turn_id : :psicometrico_turn_id ) %>
+      <%# form.label input_id, unit.unit.name %>
+      <%# <div class="col-6"> %>
+        <%# form.select input_id, 
+          Turn.where(course_id: course.id, unit_id: unit.unit_id).where.not(status: :busy).collect { |turn| [ "#{hour_format(turn.hour)} #{(turn.reserved?) ? "Reservado" : ""}", turn.id ] },
+          {},
+          data: {
+            controller: 'tselect',
+            tselect_ids_value: @inscription_motive_id
+          }
+        %>
+      <%# </div> %>
+      <%# inline_error_for(:input_id, course_person, "offset-3") %>
+    <%# </div> %>
+  <%# end %>
+
   <div>
     <%= form.submit "Guardar" %>
     <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</button>

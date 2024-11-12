@@ -41,7 +41,9 @@ class CoursePeopleController < ApplicationController
         format.html { redirect_to courses_path, notice: "Curso registrado." }
         format.json { render :show, status: :created, location: @course_person }
       else
+        debugger
         course_person_variables
+        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @course_person.errors, status: :unprocessable_entity }
       end
@@ -96,8 +98,8 @@ class CoursePeopleController < ApplicationController
         :operator_id,
         :inscription_motive_id,
         :fleet_category_id,
-        # :practical_turn_id,
-        # :psicometrico_turn_id
+        :practical_turn_id,
+        :psicometrico_turn_id
       )
     end
 
