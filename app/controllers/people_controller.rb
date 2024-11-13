@@ -23,7 +23,7 @@ class PeopleController < ApplicationController
   # POST /people or /people.json
   def create
     @person = Person.new(person_params)
-
+    debugger
     respond_to do |format|
       if @person.save
         format.turbo_stream {
@@ -101,7 +101,7 @@ class PeopleController < ApplicationController
     end
 
     def set_city
-      @city_id = [ @person.city.id ]
+      @city_id = [ @person.city&.id ]
     end
 
     # Only allow a list of trusted parameters through.

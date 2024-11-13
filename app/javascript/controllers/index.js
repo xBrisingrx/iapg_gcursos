@@ -25,6 +25,9 @@ application.register("courses--turn-modal", Courses__TurnModalController)
 import FilterController from "./filter_controller"
 application.register("filter", FilterController)
 
+import FormController from "./form_controller"
+application.register("form", FormController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
