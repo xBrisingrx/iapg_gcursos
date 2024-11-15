@@ -5,7 +5,7 @@
       <%= form.select :unit_id, Unit.actives.all.collect { |unit| [ "#{unit.name}", unit.id ] },
         {:include_blank => "Seleccione módulo"},
         data: {controller: 'tselect',
-          tselect_ids_value: @unit_id
+          tselect_ids_value: course_type_unit.unit_id
         },
         required: true
       %>
@@ -19,7 +19,7 @@
       <%= form.select :day, [1,2,3].each { |day| [ "#{day}", day ] },
         {:include_blank => "Seleccione día"},
         data: {controller: 'tselect',
-          tselect_ids_value: @day
+          tselect_ids_value: course_type_unit.day
         },
         required: true
       %>

@@ -9,11 +9,6 @@ export default class extends Controller {
   submit_form(event){
     event.preventDefault()
     const form_data = new FormData(this.formTarget)
-    // let form_inputs_value = new FormData
-    // form_data.forEach((v,k) => {
-    //   form_inputs_value.append(k,v)
-    // })
-    // const json = JSON.stringify(form_inputs_value)
     fetch(this.formTarget.action, {
       method: "POST",
       headers:  {
@@ -23,14 +18,15 @@ export default class extends Controller {
     })
     .then(response => response.json())
     .then(response => {
-      document.querySelector("#error-messages").innerHTML = ''
+      document.querySelectorAll('.text-danger').forEach( element => element.innerHTML = '' )
       const response_keys = Object.keys(response)
       for (let i = 0; i < response_keys.length; i++) {
         const message = response[response_keys[i]][0] 
-
-        document.querySelector("#error-messages").innerHTML += `
-          <li>${message}</li>
-        `
+        let input_class = 'course'
+        response_keys[i].split('.').forEach(element => {
+          input_class += `_${element}`
+        })
+        document.querySelector(`.${input_class}`).innerHTML = message
       }
       debugger
     })

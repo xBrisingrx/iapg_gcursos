@@ -3,10 +3,10 @@
     controller: "courses--form",
     action: "submit->courses--form#submit_form",
     courses__form_target: "form"}) do |form| %>
-    <ul id="error-messages"></ul>
   <div class="form-group row mb-2">
     <%= form.label :from_date, "Fecha" %>
     <%= form.date_field :from_date %>
+    <div class="offset-3 text-danger course_from_date"></div>
   </div>
 
   <div class="form-group row mb-2">
@@ -19,22 +19,24 @@
           controller: "tselect courses--select-course-type",
           courses__select_course_type_target: "selectCourseType",
           action: "courses--select-course-type#select_default_room",
-          tselect_ids_value: @course_type_id
+          tselect_ids_value: course.course_type_id
         },
         required: true
       %>
     </div>
-    <%= inline_error_for(:course_type_id, course, "offset-3") %>
+    <div class="offset-3 text-danger course_course_type_id"></div>
   </div>
 
   <div class="form-group row mb-2">
     <%= form.label :year_number, "Nro anual" %>
     <%= form.number_field :year_number %>
+    <div class="offset-3 text-danger course_year_number"></div>
   </div>
 
   <div class="form-group row mb-2">
     <%= form.label :general_number, "Nro general" %>
     <%= form.number_field :general_number %>
+    <div class="offset-3 text-danger course_general_number"></div>
   </div>
 
   <div class="form-group row mb-2">
@@ -42,10 +44,11 @@
     <div class="col-6">
       <%= form.select :room_id, Room.actives.all.collect { |room| [ "#{room.name} (#{room.capacity})", room.id, data: { capacity: room.capacity } ] },
         {:include_blank => "Seleccione sala"},
-        required: true
+        required: true,
+        tselect_ids_value: course.room_id
       %>
     </div>
-    <%= inline_error_for(:room_id, course, "offset-3") %>
+    <div class="offset-3 text-danger course_room_id"></div>
   </div>
 
   <div class="form-group row mb-2">
@@ -64,14 +67,15 @@
           {:include_blank => "Seleccione empresa"},
           data: {
             controller: "tselect",
-            tselect_ids_value: @company_id
+            tselect_ids_value: course.company_id
           }
         %>
+        <div class="offset-3 text-danger course_company_id"></div>
       </div>
   </div>
-  
-  <%= turbo_frame_tag :units %>  
-
+  <div class="col-12">
+    <%= turbo_frame_tag :units %> 
+  </div> 
   <div>
     <%= form.submit "Guardar" %>
     <%= link_to "Volver", courses_path, class: "btn btn-sm btn-danger" %>

@@ -6,6 +6,9 @@ class CourseUnit < ApplicationRecord
   belongs_to :instructor
   has_many :turns
 
+  validates :start_hour, :end_hour, presence: true
+  validate :start_hour_less_than_end_hour
+
   before_create :set_date
   after_create :generate_turns
 
@@ -46,6 +49,14 @@ class CourseUnit < ApplicationRecord
         n_list: self.n_list
       )
       turn_hour += course_type_unit.shift_time.minutes
+    end
+  end
+
+  def start_hour_less_than_end_hour
+    return if self.start_hour.nil? || self.end_hour.nil?
+    if self.start_hour >= self.end_hour
+      errors.add :start_hour, "Hora inicio debe ser menor a hora fin"
+      errors.add :end_hour, "Hora fin debe ser mayor a hora inicio"
     end
   end
 end

@@ -14,7 +14,7 @@ class Course < ApplicationRecord
 
   validates :year_number, :general_number, uniqueness: { scope: :course_type_id, allow_blank: true }
   validates :from_date, presence: true
-  # validates :company_id, required:
+  validates :company_id, presence: true, if: :course_is_company
 
   scope :actives, -> { where(active: true) }
   scope :count_general_number, ->(course_type_id) { where(active: true).where(course_type_id: course_type_id).count }
@@ -47,5 +47,9 @@ class Course < ApplicationRecord
   def set_to_date
     days = self.course_type.days - 1
     self.update(to_date: self.from_date + days.day)
+  end
+
+  def course_is_company
+    self.is_company
   end
 end

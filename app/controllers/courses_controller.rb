@@ -32,9 +32,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to courses_path, notice: "Curso registrado." }
         format.json { render :show, status: :created, location: @course }
       else
-        @course_type_id = params[:course_type_id]
         # format.html { render :new, status: :unprocessable_entity }
-        debugger
         format.json { render json: @course.errors.messages, status: :unprocessable_entity }
       end
     end

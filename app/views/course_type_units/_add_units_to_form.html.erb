@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :units do %>
-  <div class="row">
+  <div class="row col-12">
     <div class="col-2">
       <h3>Módulo</h3>
     </div>
@@ -31,38 +31,44 @@
       <div class="col-1">
         <input type="number" disabled class="form-control" id="calc_quota" value=<%= course_type_unit.calc_quota %> />
       </div>
-      <div class="col-2 row">
+      <div class="col-4 row">
         <div class='col-6'>
           <input type="time" class="form-control" 
             value="<%= hour_format(course_type_unit.start_hour) %>"
-            id="course_instructor_start_hour_<%= index %>"
+            id="course_course_units_start_hour_<%= index %>"
             name="course[course_units_attributes][<%= index %>][start_hour]"
             data-courses--select-course-type-target="startHour"
             data-action="change->courses--select-course-type#calc_quota"
             data-shift-time="<%= course_type_unit.shift_time %>"
-            data-index="<%= index %>" />
+            data-index="<%= index %>"
+            required />
+            <div class="text-danger course_course_units_start_hour"></div>
         </div>
         <div class='col-6'>
           <input type="time" class="form-control" 
             value="<%= hour_format(course_type_unit.end_hour) %>"
-            id="course_instructor_end_hour_<%= index %>"
+            id="course_course_units_end_hour_<%= index %>"
             name="course[course_units_attributes][<%= index %>][end_hour]"
             data-action="change->courses--select-course-type#calc_quota"
             data-shift-time="<%= course_type_unit.shift_time %>"
-            data-index="<%= index %>" />
+            data-index="<%= index %>"
+            required />
+            <div class="text-danger course_course_units_end_hour"></div>
         </div>
       </div>
       <div class="col-2 row">
         <div class="col-10">
-          <select id="course_instructor_<%= index %>" 
+          <select id="course_course_units_<%= index %>" 
             name="course[course_units_attributes][<%= index %>][instructor_id]" 
             data-controller="tselect"
-            class="form-control">
+            class="form-control"
+            required>
             <option value="">Seleccione instructor</option>
             <% instructors.each do |instructor| %>
               <option value="<%= instructor.id %>>"><%= instructor.name %></option>
             <% end %>
           </select>
+            <div class="text-danger course_course_units_instructor"></div>
         </div>
         <div class="col-2">
           <button type="button" 
