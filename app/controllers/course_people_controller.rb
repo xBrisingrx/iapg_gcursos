@@ -35,7 +35,7 @@ class CoursePeopleController < ApplicationController
           render turbo_stream: [
               turbo_stream.replace("toasts",
                 partial: "shared/toasts",
-                locals: { message: "Persona agregada al curso.", status_class: "primary" })
+                locals: { message: "Inscripción exitosa.", status_class: "primary" })
           ]
         }
         format.html { redirect_to courses_path, notice: "Curso registrado." }

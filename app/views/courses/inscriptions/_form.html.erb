@@ -17,6 +17,7 @@
           inscriptions__form_target: "personName",
           action: "change->inscriptions--form#search_person",
         } %>
+    <%= form.hidden_field :person_id, data: {inscriptions__form_target: "personId"} %>
   </div>
 
   <div class="form-group row mb-3">

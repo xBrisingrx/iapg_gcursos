@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="inscriptions--form"
 export default class extends Controller {
-  static targets = ["query", "personName", "selectCourseCategory"]
+  static targets = ["query", "personName", "personId","selectCourseCategory"]
   connect() {
   }
 
@@ -24,6 +24,7 @@ export default class extends Controller {
           this.personNameTarget.value = "No hay resultados con este cuil"
         } else {
           this.personNameTarget.value = person.name
+          this.personIdTarget.value = person.id
         }
       })
   }

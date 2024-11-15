@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
     @course = Course.new
+    @course.course_units.build
   end
 
   # GET /courses/1/edit
@@ -31,8 +32,10 @@ class CoursesController < ApplicationController
         format.html { redirect_to courses_path, notice: "Curso registrado." }
         format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+        @course_type_id = params[:course_type_id]
+        # format.html { render :new, status: :unprocessable_entity }
+        debugger
+        format.json { render json: @course.errors.messages, status: :unprocessable_entity }
       end
     end
   end
@@ -90,11 +93,13 @@ class CoursesController < ApplicationController
     courses_type_ids = CourseType.where(fleet: params[:fleet].to_sym, category: params[:category]).pluck(:id)
     courses = Course.where(course_type_id: courses_type_ids)
     units = CourseUnit.where(course_id: courses.pluck(:id)).group(:course_id).group(:unit_id)
+    practicals = units.joins(:unit).where(unit: { category: "Práctico" })
+    psycometrics = units.joins(:unit).where(unit: { category: "Psicométrico" })
     render turbo_stream:
               turbo_stream.replace(
                 "select_courses",
                 partial: "courses/inscriptions/select_courses",
-                locals: { courses: courses, units: units })
+                locals: { courses: courses, units: units, practicals: practicals, psycometrics: psycometrics })
   end
 
   private

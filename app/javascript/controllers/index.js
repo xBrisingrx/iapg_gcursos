@@ -10,6 +10,9 @@ application.register("calendar", CalendarController)
 import Courses__CheckIsCompanyController from "./courses/check_is_company_controller"
 application.register("courses--check-is-company", Courses__CheckIsCompanyController)
 
+import Courses__FormController from "./courses/form_controller"
+application.register("courses--form", Courses__FormController)
+
 import Courses__SelectCompanyController from "./courses/select_company_controller"
 application.register("courses--select-company", Courses__SelectCompanyController)
 

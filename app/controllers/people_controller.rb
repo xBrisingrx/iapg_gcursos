@@ -23,7 +23,6 @@ class PeopleController < ApplicationController
   # POST /people or /people.json
   def create
     @person = Person.new(person_params)
-    debugger
     respond_to do |format|
       if @person.save
         format.turbo_stream {

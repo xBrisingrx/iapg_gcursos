@@ -1,18 +1,56 @@
 <%= turbo_frame_tag "select_courses" do %>
-  <%= tag.div class: "form-group row mb-3" do %>
-    <div class="col-12 col-sm-3">
-      <label for="">Curso</label>
-    </div>
-    <div class="col-12 col-sm-6">
-      <select name="" 
-        data-controller="tselect" 
-        data-action="change->inscriptions--form#select_course" 
-        class="form-control form-control-sm">
-        <option value="">Seleccione curso</option>
-        <% courses.each do |course| %>
-          <option value="<%= course.id %>"><%= "#{course.course_type.name} #{course.room.name} #{date_format(course.from_date)}" %></option>
-        <% end %>
-      </select>
-    </div>
-  <% end %>
+  <div class="animate__animated animate__fadeIn" data-animate-out="animate__fadeOut">
+    <%= tag.div class: "form-group row mb-3" do %>
+      <div class="col-12 col-sm-3">
+        <label for="">Curso</label>
+      </div>
+      <div class="col-12 col-sm-6">
+        <select name="inscription[theoric]" 
+          data-controller="tselect" 
+          data-action="change->inscriptions--form#select_course" 
+          class="form-control form-control-sm">
+          <option value="">Seleccione curso</option>
+          <% courses.each do |course| %>
+            <option value="<%= course.id %>"><%= "#{course.course_type.name} #{course.room.name} #{date_format(course.from_date)}" %></option>
+          <% end %>
+        </select>
+      </div>
+    <% end %>
+    <% if !practicals.empty? %>
+      <%= tag.div class: "form-group row mb-3" do %>
+        <div class="col-12 col-sm-3">
+          <label for="">Pratica</label>
+        </div>
+        <div class="col-12 col-sm-6">
+          <select name="inscription[practical]"
+            data-controller="tselect" 
+            data-action="change->inscriptions--form#select_course" 
+            class="form-control form-control-sm">
+            <option value="">Seleccione curso</option>
+            <% practicals.each do |practical| %>
+              <option value="<%= practical.id %>"><%= "#{practical.course.room.name} #{date_format(practical.date)}" %></option>
+            <% end %>
+          </select>
+        </div>
+      <% end %>
+    <% end %>
+    <% if !psycometrics.empty? %>
+      <%= tag.div class: "form-group row mb-3" do %>
+        <div class="col-12 col-sm-3">
+          <label for="">Psicometrico</label>
+        </div>
+        <div class="col-12 col-sm-6">
+          <select name="inscription[psicometric]"
+            data-controller="tselect" 
+            data-action="change->inscriptions--form#select_course" 
+            class="form-control form-control-sm">
+            <option value="">Seleccione curso</option>
+            <% psycometrics.each do |psycometric| %>
+              <option value="<%= psycometric.id %>"><%= "#{psycometric.course.room.name} #{date_format(psycometric.date)}" %></option>
+            <% end %>
+          </select>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
